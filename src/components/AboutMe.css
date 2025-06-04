@@ -111,7 +111,6 @@
   opacity: 0.5;
 }
 
-
 .about-img img {
   width: 300px;
   height: 500px;
@@ -163,7 +162,7 @@
 }
 
 .about-text h2 {
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
   margin-bottom: 30px;
   line-height: 1.2;
@@ -176,7 +175,7 @@
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 2.5vw, 1.1rem);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.9);
 }
@@ -193,10 +192,12 @@
 
 .bio-info div {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 15px;
   color: rgba(255, 255, 255, 0.9);
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2.2vw, 1rem);
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .bio-info div:last-child {
@@ -207,13 +208,14 @@
   display: inline-block;
   min-width: 100px;
   color: #60a5fa;
-  margin-right: 10px;
+  flex-shrink: 0;
 }
 
 /* Button */
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   background: linear-gradient(45deg, #3b82f6, #9333ea);
   color: white;
   font-weight: 600;
@@ -223,6 +225,9 @@
   transition: all 0.3s ease;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   margin-top: 20px;
+  font-size: clamp(0.9rem, 2.2vw, 1rem);
+  min-height: 50px;
+  white-space: nowrap;
 }
 
 .btn:hover {
@@ -236,13 +241,35 @@
 .me-2 {
   margin-right: 10px;
   transition: transform 0.3s ease;
+  flex-shrink: 0;
 }
 
 .btn:hover .me-2 {
   transform: translateX(3px);
 }
 
-/* Responsive Design */
+/* Enhanced Mobile Responsive Design */
+
+/* Large Tablets and Small Desktops */
+@media (max-width: 1024px) {
+  .about-container {
+    gap: 50px;
+    max-width: 900px;
+  }
+  
+  .about-img img {
+    width: 280px;
+    height: 450px;
+  }
+  
+  #about::after,
+  .about-container::before,
+  .about-container::after {
+    opacity: 0.7;
+  }
+}
+
+/* Medium Tablets */
 @media (max-width: 968px) {
   .about-container {
     grid-template-columns: 1fr;
@@ -250,19 +277,30 @@
     text-align: center;
   }
   
+  .about-img {
+    order: -1;
+  }
+  
   .about-img img {
-    width: 320px;
+    width: 300px;
     height: 400px;
   }
   
-  .about-text h2 {
-    font-size: 2.5rem;
+  .bio-info div {
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .bio-info strong {
+    min-width: auto;
   }
 }
 
+/* Small Tablets */
 @media (max-width: 768px) {
   #about {
     padding: 60px 15px;
+    min-height: auto;
   }
   
   .about-container {
@@ -271,36 +309,220 @@
   
   .about-img img {
     width: 280px;
-    height: 350px;
-  }
-  
-  .about-text h2 {
-    font-size: 2rem;
+    height: 360px;
   }
   
   .about-text p {
-    padding: 15px;
-    font-size: 1rem;
+    padding: 18px;
   }
   
   .bio-info {
-    padding: 20px;
+    padding: 25px;
   }
   
   .bio-info div {
     flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
   }
   
   .bio-info strong {
     margin-bottom: 5px;
+    color: #93c5fd;
+  }
+  
+  /* Adjust floating elements for smaller screens */
+  #about::after {
+    width: 80px;
+    height: 80px;
+    top: 5%;
+    left: 5%;
+  }
+  
+  .about-container::before {
+    width: 100px;
+    height: 100px;
+    top: 25%;
+    right: 5%;
+  }
+  
+  .about-container::after {
+    width: 90px;
+    height: 90px;
+    bottom: 15%;
+    left: 10%;
   }
 }
 
+/* Large Mobile Phones */
+@media (max-width: 640px) {
+  #about {
+    padding: 50px 12px;
+  }
+  
+  .about-container {
+    gap: 25px;
+  }
+  
+  .about-img img {
+    width: 260px;
+    height: 320px;
+    border-radius: 25px 50px 25px 50px;
+  }
+  
+  .about-img::before {
+    border-radius: 30px 60px 30px 60px;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+  }
+  
+  .about-text p {
+    padding: 16px;
+    border-radius: 10px;
+  }
+  
+  .bio-info {
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  .btn {
+    padding: 12px 24px;
+    border-radius: 40px;
+    width: 100%;
+    max-width: 280px;
+    margin: 20px auto 0;
+  }
+}
+
+/* Small Mobile Phones */
 @media (max-width: 480px) {
+  #about {
+    padding: 40px 10px;
+  }
+  
+  .about-container {
+    gap: 20px;
+  }
+  
+  .about-img img {
+    width: 220px;
+    height: 280px;
+    border-radius: 20px 40px 20px 40px;
+  }
+  
+  .about-img::before {
+    border-radius: 25px 50px 25px 50px;
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+  }
+  
+  .about-img::after {
+    width: 20px;
+    height: 20px;
+    top: -10px;
+    right: -10px;
+  }
+  
+  .about-text p {
+    padding: 14px;
+    margin-bottom: 16px;
+  }
+  
+  .bio-info {
+    padding: 16px;
+    margin: 20px 0;
+  }
+  
+  .bio-info div {
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    min-height: 44px;
+  }
+  
+  /* Further reduce floating elements */
+  #about::after {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .about-container::before {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .about-container::after {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 360px) {
+  .about-img img {
+    width: 200px;
+    height: 260px;
+  }
+  
   .about-text h2 {
-    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  .bio-info {
+    padding: 12px;
+  }
+  
+  .btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    min-height: 40px;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .about-img img:hover {
+    transform: none;
+  }
+  
+  .btn:hover {
+    transform: none;
+  }
+  
+  .btn:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+  
+  .about-img::before {
+    opacity: 0.4;
+  }
+}
+
+/* Landscape orientation on mobile */
+@media (max-width: 968px) and (orientation: landscape) {
+  #about {
+    padding: 40px 15px;
+    min-height: auto;
+  }
+  
+  .about-container {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 30px;
+  }
+  
+  .about-img {
+    order: 0;
   }
   
   .about-img img {
@@ -308,8 +530,14 @@
     height: 300px;
   }
   
-  .btn {
-    padding: 12px 24px;
-    font-size: 0.9rem;
+  .about-text {
+    text-align: left;
+  }
+  
+  .bio-info div {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    justify-content: flex-start;
   }
 }
