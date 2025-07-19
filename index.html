@@ -10,12 +10,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-    <!-- Animated Background Particles -->
-    <div class="particles-bg"></div>
-    
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold gradient-text" href="#home">Srivatsav</a>
+            <a class="navbar-brand fw-bold" href="#home">Srivatsav</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -26,7 +23,7 @@
                     <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     <li class="nav-item">
-                        <button id="theme-toggle" class="btn btn-sm btn-outline-light ms-2 glass-btn">
+                        <button id="theme-toggle" class="btn btn-sm btn-outline-light ms-2">
                             <i class="fas fa-moon"></i>
                         </button>
                     </li>
@@ -36,110 +33,59 @@
     </nav>
 
     <section id="home" class="hero-section d-flex align-items-center text-center">
-        <div class="hero-bg-overlay"></div>
-        <div class="container position-relative">
+        <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-8" data-aos="fade-up" data-aos-duration="1200">
-                    <div class="hero-content glass-card">
-                        <div class="profile-img-container mb-4">
-                            <img src="https://via.placeholder.com/150x150/4a90e2/ffffff?text=SD" alt="Profile" class="profile-img" />
-                        </div>
-                        <h1 class="display-4 fw-bold mb-4">Hi, I'm <span class="typing gradient-text"></span></h1>
-                        <p class="lead mb-5 pulse-text">Cybersecurity | AI | Full Stack Development</p>
+                <div class="col-md-8" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="hero-content">
+                        <h1 class="display-4 fw-bold mb-4">Hi, I'm <span class="typing accent-text"></span></h1>
+                        <p class="lead mb-5">Cybersecurity | AI | Full Stack Development</p>
                         <div class="hero-buttons">
-                            <a href="#projects" class="btn btn-gradient btn-lg me-3 floating-btn">
-                                <i class="fas fa-code me-2"></i>View Projects
-                            </a>
-                            <a href="#contact" class="btn btn-outline-gradient btn-lg floating-btn">
-                                <i class="fas fa-paper-plane me-2"></i>Get In Touch
-                            </a>
+                            <a href="#projects" class="btn btn-primary btn-lg me-3">View Projects</a>
+                            <a href="#contact" class="btn btn-outline-light btn-lg">Get In Touch</a>
                         </div>
                         <div class="social-icons mt-5">
-                            <a href="https://github.com/srivatsavdevarakonda" class="social-icon">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="https://linkedin.com/in/d-srivatsav-2a7a90247" class="social-icon">
-                                <i class="fab fa-linkedin"></i>
-                            </a>
-                            <a href="mailto:devarakondasrivatsav@gmail.com" class="social-icon">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                            <a href="tel:+918688319072" class="social-icon">
-                                <i class="fas fa-phone"></i>
-                            </a>
+                            <a href="https://github.com/srivatsavdevarakonda" class="social-icon"><i class="fab fa-github"></i></a>
+                            <a href="https://linkedin.com/in/d-srivatsav-2a7a90247" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                            <a href="mailto:devarakondasrivatsav@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+                            <a href="tel:+918688319072" class="social-icon"><i class="fas fa-phone"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="scroll-down">
-                <a href="#about"><i class="fas fa-chevron-down bounce-animation"></i></a>
+                <a href="#about"><i class="fas fa-chevron-down"></i></a>
             </div>
         </div>
     </section>
 
-    <section id="about" class="py-5 section-bg">
+    <section id="about" class="py-5">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
-                    <div class="about-img-container">
-                        <div class="image-frame">
-                            <img src="https://via.placeholder.com/500x600/4a90e2/ffffff?text=Profile" alt="Profile" class="about-img" />
-                        </div>
-                        <div class="floating-shapes">
-                            <div class="shape shape-1"></div>
-                            <div class="shape shape-2"></div>
-                            <div class="shape shape-3"></div>
-                        </div>
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="about-img">
+                        <img src="https://via.placeholder.com/600x400" alt="Profile" class="img-fluid rounded shadow" />
                     </div>
                 </div>
-                <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
-                    <div class="about-content">
-                        <div class="section-title mb-4">
-                            <h2 class="gradient-text">About Me</h2>
-                            <div class="title-line"></div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="section-title">
+                        <h2 class="mb-4">About Me</h2>
+                    </div>
+                    <p class="lead">Computer Science undergrad specializing in Data Science with a passion for solving real-world problems using cybersecurity, AI, and web development.</p>
+                    <p>I hold a strong academic track and thrive in team-based environments. I believe in constant upskilling and impactful contributions in the tech industry.</p>
+                    <div class="skills-container mt-4">
+                        <h4>Skills</h4>
+                        <div class="skill-item d-flex justify-content-between">
+                            <span>Python</span><span>75%</span>
                         </div>
-                        <p class="lead mb-4">Computer Science undergrad specializing in Data Science with a passion for solving real-world problems using cybersecurity, AI, and web development.</p>
-                        <p class="mb-4">I hold a strong academic track and thrive in team-based environments. I believe in constant upskilling and impactful contributions in the tech industry.</p>
-                        
-                        <div class="skills-container">
-                            <h4 class="gradient-text mb-4">Skills & Expertise</h4>
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span><i class="fab fa-python me-2"></i>Python</span>
-                                    <span class="skill-percentage">85%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="85%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span><i class="fas fa-code me-2"></i>C</span>
-                                    <span class="skill-percentage">75%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="75%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span><i class="fab fa-html5 me-2"></i>HTML/CSS/JS</span>
-                                    <span class="skill-percentage">90%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="90%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span><i class="fas fa-shield-alt me-2"></i>Cybersecurity</span>
-                                    <span class="skill-percentage">80%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="80%"></div>
-                                </div>
-                            </div>
+                        <div class="progress mb-3"><div class="progress-bar" style="width:75%"></div></div>
+                        <div class="skill-item d-flex justify-content-between">
+                            <span>C</span><span>65%</span>
                         </div>
+                        <div class="progress mb-3"><div class="progress-bar" style="width:65%"></div></div>
+                        <div class="skill-item d-flex justify-content-between">
+                            <span>HTML/CSS/JS</span><span>80%</span>
+                        </div>
+                        <div class="progress mb-3"><div class="progress-bar" style="width:80%"></div></div>
                     </div>
                 </div>
             </div>
@@ -148,81 +94,40 @@
 
     <section id="projects" class="py-5">
         <div class="container">
-            <div class="section-title text-center mb-5" data-aos="fade-up">
-                <h2 class="gradient-text">Featured Projects</h2>
-                <div class="title-line mx-auto"></div>
-                <p class="lead mt-3">Showcasing my passion for technology and innovation</p>
+            <div class="section-title text-center" data-aos="fade-up">
+                <h2>Projects</h2>
+                <p class="lead">Few highlights of my work</p>
             </div>
-            <div class="row g-4">
-                <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="project-card glass-card">
-                        <div class="project-icon">
-                            <i class="fas fa-gamepad"></i>
-                        </div>
+            <div class="row">
+                <div class="col-md-6 mb-4" data-aos="fade-up">
+                    <div class="card project-card">
                         <div class="card-body">
                             <h5 class="card-title">Wordle Game – Python CLI</h5>
-                            <p class="card-text">Interactive command-line game with advanced dictionary logic, position filtering, and elegant user interface design.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">CLI</span>
-                                <span class="tech-tag">Algorithm</span>
-                            </div>
-                            <a href="https://github.com/srivatsavdevarakonda/wordle_game" class="project-link">
-                                <i class="fab fa-github me-2"></i>View on GitHub
-                            </a>
+                            <p class="card-text">Command-line game with dictionary logic and position filtering. <a href="https://github.com/srivatsavdevarakonda/wordle_game">GitHub Link</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card project-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Steganography Image Tool</h5>
+                            <p class="card-text">LSB-based image encoding/decoding app. <a href="https://github.com/srivatsavdevarakonda/stego-project">GitHub Link</a></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="project-card glass-card">
-                        <div class="project-icon">
-                            <i class="fas fa-eye-slash"></i>
-                        </div>
+                    <div class="card project-card">
                         <div class="card-body">
-                            <h5 class="card-title">Steganography Image Tool</h5>
-                            <p class="card-text">Advanced LSB-based image encoding and decoding application with intuitive GUI and robust encryption features.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">Cryptography</span>
-                                <span class="tech-tag">GUI</span>
-                            </div>
-                            <a href="https://github.com/srivatsavdevarakonda/stego-project" class="project-link">
-                                <i class="fab fa-github me-2"></i>View on GitHub
-                            </a>
+                            <h5 class="card-title">Phishing Email Detection</h5>
+                            <p class="card-text">SIEM-based detection system using Splunk (in progress).</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="project-card glass-card">
-                        <div class="project-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Phishing Email Detection</h5>
-                            <p class="card-text">Enterprise-grade SIEM-based detection system using Splunk for real-time threat analysis and prevention.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Splunk</span>
-                                <span class="tech-tag">SIEM</span>
-                                <span class="tech-tag">Security</span>
-                            </div>
-                            <span class="project-status">In Progress</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                    <div class="project-card glass-card">
-                        <div class="project-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
+                    <div class="card project-card">
                         <div class="card-body">
                             <h5 class="card-title">GVPXplore MERN Portal</h5>
-                            <p class="card-text">Full-stack student portal with modern architecture built using MongoDB, Express.js, React.js, and Node.js.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">MERN</span>
-                                <span class="tech-tag">React</span>
-                                <span class="tech-tag">Node.js</span>
-                            </div>
-                            <span class="project-status">In Progress</span>
+                            <p class="card-text">In-progress student portal built with MongoDB, Express.js, React.js, and Node.js.</p>
                         </div>
                     </div>
                 </div>
@@ -230,80 +135,45 @@
         </div>
     </section>
 
-    <section id="contact" class="contact-section py-5 section-bg">
+    <section id="contact" class="contact-section py-5">
         <div class="container">
             <div class="section-title text-center mb-5" data-aos="fade-up">
-                <h2 class="gradient-text">Let's Connect</h2>
-                <div class="title-line mx-auto"></div>
-                <p class="lead mt-3">Ready to collaborate on something amazing?</p>
+                <h2>Contact Me</h2>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div class="contact-wrapper glass-card">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="contact-info">
-                                    <h4 class="gradient-text mb-4">Get In Touch</h4>
-                                    <div class="contact-item">
-                                        <div class="contact-icon">
-                                            <i class="fas fa-phone"></i>
-                                        </div>
-                                        <div class="contact-details">
-                                            <h6>Phone</h6>
-                                            <p>+91 8688319072</p>
-                                        </div>
-                                    </div>
-                                    <div class="contact-item">
-                                        <div class="contact-icon">
-                                            <i class="fas fa-envelope"></i>
-                                        </div>
-                                        <div class="contact-details">
-                                            <h6>Email</h6>
-                                            <p>devarakondasrivatsav@gmail.com</p>
-                                        </div>
-                                    </div>
-                                    <div class="contact-item">
-                                        <div class="contact-icon">
-                                            <i class="fab fa-linkedin"></i>
-                                        </div>
-                                        <div class="contact-details">
-                                            <h6>LinkedIn</h6>
-                                            <p><a href="https://linkedin.com/in/d-srivatsav-2a7a90247">d-srivatsav-2a7a90247</a></p>
-                                        </div>
-                                    </div>
-                                    <div class="contact-item">
-                                        <div class="contact-icon">
-                                            <i class="fab fa-github"></i>
-                                        </div>
-                                        <div class="contact-details">
-                                            <h6>GitHub</h6>
-                                            <p><a href="https://github.com/srivatsavdevarakonda">srivatsavdevarakonda</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <form id="contactForm" class="contact-form">
-                                    <h4 class="gradient-text mb-4">Send Message</h4>
-                                    <div class="form-group mb-3">
-                                        <input type="text" class="form-control glass-input" placeholder="Your Name" required />
-                                        <i class="fas fa-user form-icon"></i>
-                                    </div>
-                                    <div class="form-group mb-3">
-                                        <input type="email" class="form-control glass-input" placeholder="Your Email" required />
-                                        <i class="fas fa-envelope form-icon"></i>
-                                    </div>
-                                    <div class="form-group mb-4">
-                                        <textarea class="form-control glass-input" rows="4" placeholder="Your Message" required></textarea>
-                                        <i class="fas fa-comment form-icon"></i>
-                                    </div>
-                                    <button type="submit" class="btn btn-gradient w-100 floating-btn">
-                                        <i class="fas fa-paper-plane me-2"></i>Send Message
-                                    </button>
-                                </form>
-                            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+91 8688319072</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>devarakondasrivatsav@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-linkedin"></i>
+                            <span><a href="https://linkedin.com/in/d-srivatsav-2a7a90247">LinkedIn</a></span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-github"></i>
+                            <span><a href="https://github.com/srivatsavdevarakonda">GitHub</a></span>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-6">
+                    <form id="contactForm" class="contact-form">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Your Name" required />
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Your Email" required />
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" rows="4" placeholder="Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -311,14 +181,7 @@
 
     <footer class="py-4 text-center">
         <div class="container">
-            <div class="footer-content">
-                <p class="mb-2">&copy; 2025 Srivatsav Devarakonda. All rights reserved.</p>
-                <div class="footer-social">
-                    <a href="https://github.com/srivatsavdevarakonda"><i class="fab fa-github"></i></a>
-                    <a href="https://linkedin.com/in/d-srivatsav-2a7a90247"><i class="fab fa-linkedin"></i></a>
-                    <a href="mailto:devarakondasrivatsav@gmail.com"><i class="fas fa-envelope"></i></a>
-                </div>
-            </div>
+            <p>&copy; 2025 Srivatsav Devarakonda. All rights reserved.</p>
         </div>
     </footer>
 
