@@ -507,3 +507,67 @@ footer {
         margin-right: 0 !important;
     }
 }
+
+/* --- ADDED STYLES FOR NEW SECTIONS --- */
+
+/* Styling for alternating section backgrounds */
+.bg-light-section {
+    background-color: #f0f2f5; /* Light gray for light mode */
+}
+
+body.dark-mode .bg-light-section {
+    background-color: #283038; /* Slightly lighter dark for dark mode */
+}
+
+/* Specific styling for list items in achievement/extracurricular sections */
+.list-group-item {
+    background-color: transparent; /* Ensure list items respect parent section background */
+    border: none;
+    padding-left: 0;
+    font-size: 1.1rem;
+    padding-bottom: 10px; /* Space between items */
+}
+
+.list-group-item:last-child {
+    padding-bottom: 0;
+}
+
+body.light-mode .list-group-item {
+    color: #343a40;
+}
+
+body.dark-mode .list-group-item {
+    color: #f8f9fa;
+}
+
+/* Card styling for education/internships for consistency */
+.card {
+    border-radius: 10px;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .card {
+    background-color: #2c3e50; /* Darker card background */
+    color: #f8f9fa;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .card:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .card .text-muted {
+    color: #ced4da !important;
+}
+
+/* For small icon spacing in lists */
+.fa-xs {
+    font-size: 0.7em; /* Smaller circle for lists */
+    vertical-align: middle;
+}
