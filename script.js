@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Typed.js for the hero section
     if (document.querySelector('.typing')) {
         new Typed('.typing', {
-            strings: ['Srivatsav Devarakonda', 'a Cybersecurity Enthusiast', 'an AI Practitioner', 'a Full Stack Developer'],
+            strings: ['Srivatsav Devarakonda', 'a Cybersecurity Analyst', 'an AI Practitioner', 'a Full Stack Developer'],
             typeSpeed: 70,
             backSpeed: 40,
             loop: true,
@@ -22,29 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeToggleBtn = document.getElementById('theme-toggle');
     const body = document.body;
 
-    // Check for saved theme preference or default to light
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        body.classList.add(savedTheme);
-        updateThemeToggleIcon(savedTheme);
-    } else {
-        body.classList.add('light-mode'); // Default to light mode
-        updateThemeToggleIcon('light-mode');
-    }
-
-    themeToggleBtn.addEventListener('click', () => {
-        if (body.classList.contains('light-mode')) {
-            body.classList.replace('light-mode', 'dark-mode');
-            localStorage.setItem('theme', 'dark-mode');
-            updateThemeToggleIcon('dark-mode');
-        } else {
-            body.classList.replace('dark-mode', 'light-mode');
-            localStorage.setItem('theme', 'light-mode');
-            updateThemeToggleIcon('light-mode');
-        }
-    });
-
-    function updateThemeToggleIcon(theme) {
+    // Function to set the theme and update icon
+    function applyTheme(theme) {
+        body.classList.remove('light-mode', 'dark-mode');
+        body.classList.add(theme);
+        localStorage.setItem('theme', theme);
+        
         if (theme === 'dark-mode') {
             themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
         } else {
@@ -52,14 +35,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Check for saved theme preference or default to light
+    const savedTheme = localStorage.getItem('theme') || 'light-mode';
+    applyTheme(savedTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = localStorage.getItem('theme') || 'light-mode';
+        const newTheme = currentTheme === 'light-mode' ? 'dark-mode' : 'light-mode';
+        applyTheme(newTheme);
+    });
+
     // Smooth Scrolling for Navigation Links
-    document.querySelectorAll('.navbar-nav .nav-link').forEach(anchor => {
+    document.querySelectorAll('.nav-link, .hero-buttons a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            document.querySelector(targetId).scrollIntoView({
-                behavior: 'smooth'
-            });
+            const href = this.getAttribute('href');
+            // Ensure it's a page anchor before preventing default
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const targetId = href;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
 
             // Close navbar on mobile after clicking a link
             const navbarToggler = document.querySelector('.navbar-toggler');
