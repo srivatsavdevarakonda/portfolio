@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Typed.js for the hero section
     if (document.querySelector('.typing')) {
         new Typed('.typing', {
-            strings: ['Srivatsav Devarakonda', 'a Cybersecurity Analyst', 'an AI Practitioner', 'a Full Stack Developer'],
+            strings: ['Srivatsav Devarakonda', 'a Cybersecurity Analyst', 'an AI Tools Enthusiast', 'a Full Stack Developer'],
             typeSpeed: 70,
             backSpeed: 40,
             loop: true,
