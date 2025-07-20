@@ -81,4 +81,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Skill Card Flip functionality
+    const skillCards = document.querySelectorAll('.skill-card');
+    skillCards.forEach(card => {
+        card.addEventListener('click', () => {
+            card.classList.toggle('is-flipped');
+        });
+    });
 });

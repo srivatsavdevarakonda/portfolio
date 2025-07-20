@@ -43,12 +43,8 @@ body.light-mode .project-card, body.light-mode .card {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-body.light-mode .contact-section {
-    background-color: #ffffff;
-}
-
 body.light-mode .contact-form .form-control {
-    background-color: #f8f9fa;
+    background-color: #ffffff;
     border: 1px solid #ced4da;
     color: #495057;
 }
@@ -59,7 +55,7 @@ body.light-mode footer {
 }
 
 body.light-mode .bg-light-section {
-    background-color: #f0f2f5;
+    background-color: #e9ecef;
 }
 
 
@@ -81,7 +77,7 @@ body.dark-mode .nav-link {
 }
 
 body.dark-mode .nav-link:hover {
-    color: #00bcd4 !important; /* A lighter blue for dark mode */
+    color: #00bcd4 !important;
 }
 
 body.dark-mode .hero-section {
@@ -102,10 +98,6 @@ body.dark-mode .project-card, body.dark-mode .card {
 body.dark-mode .project-card .card-title,
 body.dark-mode .project-card .card-text {
     color: #f8f9fa;
-}
-
-body.dark-mode .contact-section {
-    background-color: #121212;
 }
 
 body.dark-mode .contact-form .form-control {
@@ -300,13 +292,18 @@ section {
     border-radius: 2px;
 }
 
+.section-title.text-lg-start h2::after {
+    margin-left: 0;
+}
+
+
 body.dark-mode .section-title h2::after {
     background-color: #00bcd4;
 }
 
 /* About Section */
 .about-img img {
-    max-width: 100%;
+    max-width: 350px;
     height: auto;
     object-fit: cover;
     border-radius: 10px;
@@ -317,34 +314,111 @@ body.dark-mode .about-img img {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-.skills-container h4 {
-    margin-bottom: 20px;
+/* Skill Cards Section */
+.skill-card {
+    background-color: transparent;
+    height: 250px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.skill-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s;
+    transform-style: preserve-3d;
+}
+
+.skill-card.is-flipped .skill-card-inner {
+    transform: rotateY(180deg);
+}
+
+.skill-card-front, .skill-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.skill-card-front {
+    background: #ffffff;
+    color: #343a40;
+}
+
+.skill-card-front i {
+    font-size: 3rem;
+    margin-bottom: 15px;
     color: #007bff;
 }
 
-body.dark-mode .skills-container h4 {
-    color: #00bcd4;
+.skill-card-front h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
-.skill-item span {
-    font-weight: 500;
+.skill-card-back {
+    background: #f8f9fa;
+    color: #343a40;
+    transform: rotateY(180deg);
+    align-items: stretch;
+    justify-content: flex-start;
 }
 
+.skill-card-back h5 {
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #007bff;
+}
+
+.skill-item {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
 .progress {
-    height: 10px;
+    height: 8px;
     border-radius: 5px;
     background-color: #e9ecef;
+    width: 100%;
+    margin-bottom: 10px;
 }
-
-body.dark-mode .progress {
-    background-color: #34495e;
-}
-
 .progress-bar {
     background-color: #007bff;
     border-radius: 5px;
 }
 
+/* Dark Mode for Skill Cards */
+body.dark-mode .skill-card-front {
+    background: #1e1e1e;
+    color: #e0e0e0;
+    border: 1px solid #3d5a71;
+}
+body.dark-mode .skill-card-front i {
+    color: #00bcd4;
+}
+body.dark-mode .skill-card-back {
+    background: #2c3e50;
+    color: #e0e0e0;
+    border: 1px solid #4a677e;
+}
+body.dark-mode .skill-card-back h5 {
+    color: #00bcd4;
+}
+body.dark-mode .progress {
+    background-color: #34495e;
+}
 body.dark-mode .progress-bar {
     background-color: #00bcd4;
 }
@@ -505,15 +579,10 @@ body.dark-mode .list-group-item {
     color: #e0e0e0;
 }
 
-.fa-xs {
-    font-size: 0.7em;
-    vertical-align: middle;
-}
-
 /* Responsive Adjustments */
 @media (max-width: 991.98px) {
     .navbar-collapse {
-        background-color: rgba(255, 255, 255, 0.98); /* Light mode */
+        background-color: rgba(255, 255, 255, 0.98);
         position: absolute;
         top: 100%;
         left: 0;
@@ -524,7 +593,7 @@ body.dark-mode .list-group-item {
     }
 
     body.dark-mode .navbar-collapse {
-        background-color: rgba(24, 24, 24, 0.98); /* Dark mode */
+        background-color: rgba(24, 24, 24, 0.98);
         border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
@@ -550,11 +619,10 @@ body.dark-mode .list-group-item {
         font-size: 1.3rem;
     }
 
-    .about-img {
-        margin-bottom: 30px;
-        text-align: center;
+    .about-content {
+        margin-top: 40px;
     }
-
+    
     .contact-info {
         margin-bottom: 40px;
     }
