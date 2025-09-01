@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeToggleBtn = document.getElementById('theme-toggle');
     const body = document.body;
 
-    // Function to set the theme and update icon
     function applyTheme(theme) {
         body.classList.remove('light-mode', 'dark-mode');
         body.classList.add(theme);
@@ -35,13 +34,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Check for saved theme preference or default to light
     const savedTheme = localStorage.getItem('theme') || 'light-mode';
     applyTheme(savedTheme);
 
     themeToggleBtn.addEventListener('click', () => {
-        const currentTheme = localStorage.getItem('theme') || 'light-mode';
-        const newTheme = currentTheme === 'light-mode' ? 'dark-mode' : 'light-mode';
+        const newTheme = body.classList.contains('light-mode') ? 'dark-mode' : 'light-mode';
         applyTheme(newTheme);
     });
 
@@ -49,23 +46,17 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.nav-link, .hero-buttons a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            // Ensure it's a page anchor before preventing default
             if (href.startsWith('#')) {
                 e.preventDefault();
-                const targetId = href;
-                const targetElement = document.querySelector(targetId);
+                const targetElement = document.querySelector(href);
                 if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
                 }
             }
-
-            // Close navbar on mobile after clicking a link
             const navbarToggler = document.querySelector('.navbar-toggler');
             const navbarCollapse = document.getElementById('navbarNav');
             if (navbarCollapse.classList.contains('show')) {
-                navbarToggler.click(); // Simulate a click to close the navbar
+                navbarToggler.click();
             }
         });
     });
@@ -75,10 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (scrollDownIcon) {
         scrollDownIcon.addEventListener('click', function(e) {
             e.preventDefault();
-            const targetId = this.getAttribute('href');
-            document.querySelector(targetId).scrollIntoView({
-                behavior: 'smooth'
-            });
+            document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
         });
     }
 
@@ -89,4 +77,40 @@ document.addEventListener('DOMContentLoaded', function() {
             card.classList.toggle('is-flipped');
         });
     });
+
+    // EmailJS Contact Form
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        (function() {
+            emailjs.init({
+                publicKey: "YOUR_PUBLIC_KEY", // <-- PASTE YOUR PUBLIC KEY HERE
+            });
+        })();
+
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formMessage = document.getElementById('form-message');
+            const submitButton = this.querySelector('button[type="submit"]');
+
+            const serviceID = 'YOUR_SERVICE_ID'; // <-- PASTE YOUR SERVICE ID HERE
+            const templateID = 'YOUR_TEMPLATE_ID'; // <-- PASTE YOUR TEMPLATE ID HERE
+
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'Sending...';
+            
+            emailjs.sendForm(serviceID, templateID, this)
+                .then(() => {
+                    formMessage.innerHTML = '<div class="alert alert-success">Message sent successfully!</div>';
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = 'Send Message';
+                    contactForm.reset();
+                }, (err) => {
+                    formMessage.innerHTML = `<div class="alert alert-danger">Failed to send message. Please try again.</div>`;
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = 'Send Message';
+                    console.error('EmailJS Error:', JSON.stringify(err));
+                });
+        });
+    }
 });
