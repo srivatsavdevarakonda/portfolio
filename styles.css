@@ -1,6 +1,6 @@
 /* Basic Resets & Body Styles */
 html {
-    overflow-y: scroll; /* Fixes page jiggle by always showing scrollbar */
+    overflow-y: scroll !important; /* This is the guaranteed fix */
 }
 
 body {
@@ -8,14 +8,14 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden !important; /* Prevent horizontal scroll */
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* Light Mode Styles (Default) */
 body.light-mode {
     background-color: #f8f9fa;
-    color: #212529; /* Darker text for better readability */
+    color: #212529;
 }
 
 body.light-mode .navbar {
@@ -65,7 +65,7 @@ body.light-mode .bg-light-section {
 /* Dark Mode Styles */
 body.dark-mode {
     background-color: #121212;
-    color: #f1f1f1; /* Brighter text for better contrast */
+    color: #f1f1f1;
 }
 
 body.dark-mode .navbar {
@@ -80,7 +80,7 @@ body.dark-mode .nav-link {
 }
 
 body.dark-mode .nav-link:hover {
-    color: #38bdf8 !important; /* A lighter, more vibrant blue */
+    color: #38bdf8 !important;
 }
 
 body.dark-mode .hero-section {
@@ -110,7 +110,7 @@ body.dark-mode .contact-form .form-control {
 
 body.dark-mode footer {
     background-color: #1e1e1e;
-    color: #a0aec0; /* Lighter footer text */
+    color: #a0aec0;
 }
 
 body.dark-mode .bg-light-section {
@@ -119,11 +119,11 @@ body.dark-mode .bg-light-section {
 
 /* Accent Color */
 .accent-text {
-    color: #007bff; /* Primary accent for light mode */
+    color: #007bff;
 }
 
 body.dark-mode .accent-text {
-    color: #38bdf8; /* Accent for dark mode */
+    color: #38bdf8;
 }
 
 /* Navigation Bar */
@@ -156,7 +156,7 @@ body.dark-mode .accent-text {
 /* Hero Section */
 .hero-section {
     min-height: 100vh;
-    padding-top: 56px; /* Offset for fixed navbar */
+    padding-top: 56px;
     position: relative;
     display: flex;
     align-items: center;
@@ -544,14 +544,14 @@ footer {
 }
 
 body.dark-mode .card .text-muted {
-    color: #94a3b8 !important; /* A readable muted color for dark mode */
+    color: #94a3b8 !important;
 }
 
 /* List Group */
 .list-group-item {
     background: transparent;
     border: none;
-    padding-left: 0;
+    padding: 0.5rem 0;
 }
 
 /* Responsive Adjustments */
