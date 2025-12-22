@@ -1,478 +1,1538 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Srivatsav Devarakonda | Portfolio</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary-blue: #6366f1;
+            --secondary-dark: #0a0e1a;
+            --accent-cyan: #00d9ff;
+            --accent-purple: #a855f7;
+            --text-main: #f8fafc;
+            --card-bg: rgba(15, 23, 42, 0.6);
+            --gold: #fbbf24;
+            --glow-cyan: rgba(0, 217, 255, 0.5);
+            --glow-purple: rgba(168, 85, 247, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 100%);
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            position: relative;
+        }
+
+        /* Advanced Background with Grid and Gradients */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(0, 217, 255, 0.1) 0%, transparent 40%);
+            z-index: -2;
+            animation: gradientShift 20s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Animated Grid Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Floating Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-cyan), transparent);
+            top: -250px;
+            left: -250px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent-purple), transparent);
+            bottom: -200px;
+            right: -200px;
+            animation-delay: 7s;
+        }
+
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, var(--primary-blue), transparent);
+            top: 50%;
+            left: 50%;
+            animation-delay: 14s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(100px, -100px) scale(1.1); }
+            66% { transform: translate(-100px, 100px) scale(0.9); }
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: rgba(10, 14, 26, 0.85) !important;
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+            padding: 1rem 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 20px var(--glow-cyan));
+        }
+
+        .nav-link {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: rgba(248, 250, 252, 0.8) !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            padding: 0.5rem 1rem !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-cyan) !important;
+            transform: translateY(-2px);
+        }
+
+        .btn-resume {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan), var(--accent-purple));
+            background-size: 200% 200%;
+            border: none;
+            color: white;
+            font-weight: 700;
+            padding: 0.6rem 2rem;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-resume::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-resume:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-resume:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px var(--glow-cyan);
+            background-position: 100% 0;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 120px;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 50%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+            letter-spacing: -2px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h3 {
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .hero .lead {
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Modern Terminal */
+        .terminal-window {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
+            border-radius: 20px;
+            box-shadow: 
+                0 50px 100px -20px rgba(0, 0, 0, 0.7),
+                0 0 0 1px rgba(0, 217, 255, 0.1),
+                inset 0 0 100px rgba(0, 217, 255, 0.03);
+            overflow: hidden;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            animation: floatTerminal 6s ease-in-out infinite;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        @keyframes floatTerminal {
+            0%, 100% { transform: translateY(0px) rotateX(0deg); }
+            50% { transform: translateY(-20px) rotateX(2deg); }
+        }
+
+        .terminal-header {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            padding: 15px 20px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .dot:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .terminal-body {
+            padding: 25px;
+            color: #cbd5e1;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .terminal-body p {
+            margin-bottom: 0.5rem;
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Sections */
+        .section-padding {
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .cyber-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            border-radius: 24px;
+            padding: 35px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .cyber-card:hover::before {
+            opacity: 1;
+        }
+
+        .cyber-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .cyber-card:hover::after {
+            opacity: 1;
+        }
+
+        .cyber-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: var(--accent-cyan);
+            box-shadow: 
+                0 30px 60px -12px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(0, 217, 255, 0.3),
+                0 0 40px rgba(0, 217, 255, 0.2);
+        }
+
+        .trust-badge {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.4));
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trust-badge::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 16px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .trust-badge:hover::before {
+            opacity: 1;
+        }
+
+        .trust-badge:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 217, 255, 0.3);
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(0, 217, 255, 0.15));
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.3), transparent);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .stat-card:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 15px 35px rgba(0, 217, 255, 0.25);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .experience-card {
+            border-left: 3px solid transparent;
+            background: linear-gradient(to right, var(--primary-blue), var(--accent-cyan)) left/3px 100% no-repeat;
+            padding-left: 30px;
+            padding-bottom: 40px;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            left: -9.5px;
+            top: 5px;
+            box-shadow: 0 0 20px var(--glow-cyan), 0 0 40px var(--glow-cyan);
+            animation: pulse 2s infinite;
+            border: 3px solid var(--secondary-dark);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px var(--glow-cyan), 0 0 40px var(--glow-cyan);
+            }
+            50% {
+                box-shadow: 0 0 30px var(--glow-cyan), 0 0 60px var(--glow-cyan);
+            }
+        }
+
+        .experience-card:hover {
+            padding-left: 35px;
+        }
+
+        .security-footer {
+            border-top: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 60px 0;
+            background: linear-gradient(180deg, rgba(10, 14, 26, 0.9), rgba(2, 6, 23, 1));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .security-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+        }
+
+        .shield-icon {
+            font-size: 4rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.3;
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(2, 6, 23, 1);
+            padding: 0 20px;
+            animation: floatShield 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px var(--glow-cyan));
+        }
+
+        @keyframes floatShield {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .security-footer a {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+
+        .security-footer a:hover {
+            transform: translateY(-5px) scale(1.1);
+            filter: drop-shadow(0 0 20px currentColor);
+        }
+
+        .progress {
+            height: 8px;
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 10px;
+            margin-top: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-cyan));
+            position: relative;
+            overflow: hidden;
+            animation: shimmer 2s infinite;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: progressShine 2s infinite;
+        }
+
+        @keyframes progressShine {
+            to { left: 200%; }
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Section Headers */
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(135deg, #ffffff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 2px;
+            box-shadow: 0 0 20px var(--glow-cyan);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            z-index: 9999;
+            box-shadow: 0 0 10px var(--glow-cyan);
+        }
+
+        /* Smooth reveal animations */
+        [data-aos] {
+            opacity: 0;
+            transition-property: transform, opacity;
+        }
+
+        [data-aos].aos-animate {
+            opacity: 1;
+        }
+
+        /* Glassmorphism effect */
+        .glass {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding-top: 100px;
+            }
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+
+            .terminal-window {
+                margin-top: 40px;
+            }
+        }
+
+
+        .text-cyan { color: #00d4ff !important; }
+.text-purple { color: #a855f7 !important; }
+.text-magenta { color: #ec4899 !important; }
+.text-yellow { color: #fbbf24 !important; }
+.text-green { color: #10b981 !important; }
+
+.rainbow {
+    background: linear-gradient(-45deg, #00d4ff, #a855f7, #ec4899, #fbbf24, #10b981);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: rainbow 3s ease infinite;
+}
+
+@keyframes rainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+    </style>
 </head>
 <body>
+<body>
+    <!-- [1] SCROLL ELEMENTS & CANVAS -->
+    <div class="scroll-indicator" id="scrollProgress"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- [2] NAVBAR (Fixed Order) -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#home">Srivatsav</a>
+            <a class="navbar-brand" href="#home">SRIVATSAV.<span class="text-white">D</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
                     <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
                     <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    <li class="nav-item">
-                        <button id="theme-toggle" class="btn btn-sm btn-outline-light ms-2">
-                            <i class="fas fa-moon"></i>
-                        </button>
+                    <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#certifications">Certifications</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#achievements">Achievements</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a href="#contact" class="btn btn-sm btn-resume rounded-pill px-4">Contact Me</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="hero-section d-flex align-items-center text-center">
+    <!-- [3] HOME SECTION -->
+    <section id="home" class="hero">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8" data-aos="fade-up" data-aos-duration="1000">
-                    <div class="hero-content">
-                        <h1 class="display-4 fw-bold mb-4">Hi, I'm <span class="typing accent-text"></span></h1>
-                        <p class="lead mb-5">Cybersecurity | AI & Machine Learning | Full Stack Development</p>
-                        <div class="hero-buttons">
-                            <a href="#projects" class="btn btn-primary btn-lg me-3">View My Work</a>
-                            <a href="./CV.pdf" download="Srivatsav_Devarakonda_Resume.pdf" class="btn btn-secondary btn-lg me-3">Download CV</a>
-                            <a href="#contact" class="btn btn-outline-light btn-lg">Get In Touch</a>
+            <div class="row align-items-center">
+                <div class="col-lg-7" data-aos="fade-right">
+                    <h1 class="hero-title">Srivatsav Devarakonda</h1>
+                    <h3 class="mb-4">
+                        <span class="typing" style="color: var(--accent-cyan);"></span>
+                    </h3>
+                    <p class="lead text-secondary mb-5">
+                        Passionate Computer Science undergraduate at <strong>GVPCE(A)</strong> specializing in 
+                        <strong>Data Science</strong>. Bridging the gap between <strong>AI/ML</strong> and 
+                        <strong>Cybersecurity</strong> to architect scalable, secure systems.
+                    </p>
+                    <div class="row g-3">
+                        <div class="col-6 col-md-3">
+                            <div class="stat-card">
+                                <i class="fas fa-star text-warning"></i><br>
+                                <small>CodeChef</small><br><strong>2 Star</strong>
+                            </div>
                         </div>
-                        <div class="social-icons mt-5">
-                            <a href="https://github.com/srivatsavdevarakonda" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-                            <a href="https://linkedin.com/in/d-srivatsav-2a7a90247" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-                            <a href="mailto:devarakondasrivatsav@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
-                            <a href="tel:+918688319072" class="social-icon"><i class="fas fa-phone"></i></a>
+                        <div class="col-6 col-md-3">
+                            <div class="stat-card">
+                                <i class="fas fa-code text-info"></i><br>
+                                <small>LeetCode</small><br><strong>1451</strong>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="scroll-down">
-                <a href="#about"><i class="fas fa-chevron-down"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="py-5">
-        <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-lg-4 col-md-10" data-aos="fade-right">
-                    <div class="about-img text-center">
-                        <img src="./profile.jpg" alt="Profile" class="img-fluid rounded shadow" />
-                    </div>
-                </div>
-                <div class="col-lg-8 col-md-12" data-aos="fade-left">
-                    <div class="about-content">
-                        <div class="section-title text-center text-lg-start">
-                           <h2 class="mb-4">About Me</h2>
-                        </div>
-                        <p class="lead">I am a dedicated Computer Science undergraduate specializing in Data Science, with a deep passion for solving complex, real-world problems at the intersection of Cybersecurity, Artificial Intelligence, and Full-Stack Web Development. Backed by a strong academic foundation and enriched through impactful internships and hands-on projects, I bring both technical proficiency and practical insight to my work. A collaborative team player and committed lifelong learner, I continuously strive to upskill, innovate, and make meaningful contributions to the ever-evolving tech landscape.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills" class="py-5 bg-light-section">
-    <div class="container">
-        <div class="section-title text-center" data-aos="fade-up">
-            <h2>Technical Skills</h2>
-            <p class="lead">A detailed look at my technical capabilities</p>
-        </div>
-        <div class="row" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-code"></i>
-                            <h3>Programming</h3>
-                        </div>
-                        <div class="skill-card-back">
-                            <h5>Core Languages</h5>
-                            <div class="skill-item"><span>Python</span><span>75%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 75%;"></div></div>
-                            <div class="skill-item"><span>JavaScript (ES6+)</span><span>80%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 80%;"></div></div>
-                            <div class="skill-item"><span>Java</span><span>70%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 70%;"></div></div>
-                             <div class="skill-item"><span>C / C++</span><span>65%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 65%;"></div></div>
+                        <div class="col-6 col-md-3">
+                            <div class="stat-card">
+                                <i class="fas fa-graduation-cap text-success"></i><br>
+                                <small>CGPA</small><br><strong>9.08</strong>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-desktop"></i>
-                            <h3>Frontend Dev</h3>
+                <div class="col-lg-5" data-aos="zoom-in">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                            <span class="ms-2 text-secondary small">identity.py</span>
                         </div>
-                        <div class="skill-card-back">
-                            <h5>Markup & Frameworks</h5>
-                            <div class="skill-item"><span>HTML & CSS</span><span>80%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 80%;"></div></div>
-                            <div class="skill-item"><span>React.js</span><span>70%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 70%;"></div></div>
-                            <div class="skill-item"><span>Bootstrap / Tailwind</span><span>75%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 75%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-server"></i>
-                            <h3>Backend Dev</h3>
-                        </div>
-                        <div class="skill-card-back">
-                            <h5>Frameworks & APIs</h5>
-                            <div class="skill-item"><span>Node.js / Express.js</span><span>65%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 65%;"></div></div>
-                            <div class="skill-item"><span>Flask / FastAPI</span><span>70%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 70%;"></div></div>
-                            <div class="skill-item"><span>RESTful APIs</span><span>75%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 75%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-database"></i>
-                            <h3>Databases</h3>
-                        </div>
-                        <div class="skill-card-back">
-                            <h5>Query & Management</h5>
-                            <div class="skill-item"><span>SQL (MySQL)</span><span>75%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 75%;"></div></div>
-                            <div class="skill-item"><span>NoSQL (MongoDB)</span><span>70%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 70%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-user-secret"></i>
-                            <h3>VAPT Tools</h3>
-                        </div>
-                        <div class="skill-card-back">
-                            <h5>Penetration Testing</h5>
-                            <div class="skill-item"><span>Nmap</span><span>85%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 85%;"></div></div>
-                            <div class="skill-item"><span>Metasploit</span><span>75%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 75%;"></div></div>
-                             <div class="skill-item"><span>Burp Suite</span><span>80%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 80%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-shield-alt"></i>
-                            <h3>SOC Tools</h3>
-                        </div>
-                        <div class="skill-card-back">
-                            <h5>Security Operations</h5>
-                            <div class="skill-item"><span>Splunk</span><span>85%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 85%;"></div></div>
-                            <div class="skill-item"><span>Wazuh</span><span>80%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 80%;"></div></div>
-                            <div class="skill-item"><span>Snort</span><span>80%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 80%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-code-branch"></i>
-                            <h3>Version Control</h3>
-                        </div>
-                        <div class="skill-card-back">
-                            <h5>Source Code Mgmt</h5>
-                            <div class="skill-item"><span>Git</span><span>85%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 85%;"></div></div>
-                            <div class="skill-item"><span>GitHub / GitLab</span><span>80%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 80%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-cogs"></i>
-                            <h3>DevOps & Tools</h3>
-                        </div>
-                        <div class="skill-card-back">
-                            <h5>CI/CD & Containers</h5>
-                            <div class="skill-item"><span>Docker</span><span>60%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 60%;"></div></div>
-                            <div class="skill-item"><span>CI/CD (GitHub Actions)</span><span>65%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 65%;"></div></div>
-                            <div class="skill-item"><span>VS Code / Jupyter</span><span>85%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 85%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-body" id="interactiveTerminal">
+    <!-- Initial state -->
+    <div class="terminal-line" data-cmd="init">
+        <span class="text-info">srivatsav@GVP:~$</span> <span class="blink">python3 profile.py</span>
     </div>
-</section>
+    <div class="terminal-line"><span class="text-success">[✓] User: Srivatsav_D | Skills: Data Science + Cybersecurity</span></div>
+    <div class="terminal-line"><span class="text-success">[✓] Projects Loaded: 6 (MERN, OpenCV, Docker)</span></div>
+    
+    <!-- Interactive prompt (always at bottom) -->
+    <div class="terminal-prompt" id="terminalPrompt">
+        <span class="text-info">srivatsav@GVP:~$</span> <span class="blink" id="cursor">_</span><span id="commandInput"></span>
+    </div>
+</div>
 
-    <section id="experience" class="py-5">
-        <div class="container">
-            <div class="section-title text-center" data-aos="fade-up">
-                <h2>Professional Experience</h2>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </section>
+
+    <!-- [4] ABOUT SECTION -->
+    <section id="about" class="section-padding">
+        <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
-                    <div class="card p-4 mb-3 shadow-sm" data-aos="fade-up">
-                        <h5 class="fw-bold">Ethical Hacking Intern (Virtual)</h5>
-                        <p class="mb-1">InlighnTech</p>
-                        <p class="mb-1 text-muted">June 2025 – July 2025</p>
-                    </div>
-                    <div class="card p-4 mb-3 shadow-sm" data-aos="fade-up" data-aos-delay="100">
-                        <h5 class="fw-bold">VAPT Intern (Virtual)</h5>
-                        <p class="mb-1">Cyberthreya</p>
-                        <p class="mb-1 text-muted">Mar 2025 – May 2025</p>
-                    </div>
-                    <div class="card p-4 mb-3 shadow-sm" data-aos="fade-up" data-aos-delay="200">
-                        <h5 class="fw-bold">Cloud Security Intern (Virtual)</h5>
-                        <p class="mb-1">Zscaler</p>
-                        <p class="mb-1 text-muted">Apr 2025 – Jun 2025</p>
-                    </div>
-                    <div class="card p-4 mb-3 shadow-sm" data-aos="fade-up" data-aos-delay="300">
-                        <h5 class="fw-bold">Cyber Security Intern (Virtual)</h5>
-                        <p class="mb-1">Edunet Foundation (in collaboration with AICTE)</p>
-                        <p class="mb-1 text-muted">Jan 2025 – Feb 2025</p>
+                    <div class="cyber-card" data-aos="fade-up">
+                        <h2 class="text-center mb-4">About Me</h2>
+                        <p class="lead text-center">
+                            I am a dedicated Computer Science undergraduate specializing in Data Science, 
+                            with a deep passion for solving complex, real-world problems at the intersection 
+                            of Cybersecurity, Artificial Intelligence, and Full-Stack Web Development. 
+                            Backed by a strong academic foundation and enriched through impactful internships 
+                            and hands-on projects, I bring both technical proficiency and practical insight 
+                            to my work. A collaborative team player and committed lifelong learner, I continuously 
+                            strive to upskill, innovate, and make meaningful contributions to the ever-evolving 
+                            tech landscape.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="projects" class="py-5 bg-light-section">
+    <!-- [5] SKILLS SECTION -->
+    <section id="skills" class="section-padding bg-black bg-opacity-25">
         <div class="container">
-            <div class="section-title text-center" data-aos="fade-up">
-                <h2>Projects</h2>
-                <p class="lead">A selection of my recent work.</p>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="card project-card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">GVPXplore MERN Portal</h5>
-                            <p class="card-text">HTML5, CSS3, MongoDB, Express.js, React.js, Node.js, REST APIs, JWT, Bootstrap</p>
-                            <div class="mt-auto">
-                                <a href="https://github.com/srivatsavdevarakonda/" class="project-link" target="_blank" rel="noopener noreferrer">View on GitHub <i class="fas fa-arrow-right"></i></a>
-                                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">View Deployment <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card project-card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Phishing Email Detection (in progress)</h5>
-                            <p class="card-text">Splunk, SIEM, Regular Expressions, Email Log Analysis, Security Rules</p>
-                            <div class="mt-auto">
-                                <a href="https://github.com/srivatsavdevarakonda/" class="project-link" target="_blank" rel="noopener noreferrer">View on GitHub <i class="fas fa-arrow-right"></i></a>
-                                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">View Deployment <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card project-card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Steganography Image Tool</h5>
-                            <p class="card-text">Python, OpenCV, NumPy, PIL, LSB Steganography, Tkinter GUI</p>
-                            <div class="mt-auto">
-                                <a href="https://github.com/srivatsavdevarakonda/stego-project" class="project-link" target="_blank" rel="noopener noreferrer">View on GitHub <i class="fas fa-arrow-right"></i></a>
-                                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">View Deployment <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="card project-card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Wordle Game</h5>
-                            <p class="card-text">Python, Tkinter, Random Module, GUI Logic, State Management</p>
-                            <div class="mt-auto">
-                                <a href="https://github.com/srivatsavdevarakonda/wordle_game" class="project-link" target="_blank" rel="noopener noreferrer">View on GitHub <i class="fas fa-arrow-right"></i></a>
-                                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">View Deployment <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                    <div class="card project-card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Air Gesture Calci</h5>
-                            <p class="card-text">Python, OpenCV, MediaPipe, Hand Tracking, Gesture Recognition</p>
-                            <div class="mt-auto">
-                                <a href="https://github.com/srivatsavdevarakonda/air-gesture-calci" class="project-link" target="_blank" rel="noopener noreferrer">View on GitHub <i class="fas fa-arrow-right"></i></a>
-                                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">View Deployment <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="500">
-                    <div class="card project-card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Snakes & Ladders Online</h5>
-                            <p class="card-text">HTML, CSS, JavaScript, Node.js, Socket.io, Express.js, Game Logic</p>
-                            <div class="mt-auto">
-                                <a href="https://github.com/srivatsavdevarakonda/snakes-and-ladders-online" class="project-link" target="_blank" rel="noopener noreferrer">View on GitHub <i class="fas fa-arrow-right"></i></a>
-                                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">View Deployment <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="education" class="py-5">
-        <div class="container">
-            <div class="section-title text-center" data-aos="fade-up">
-                <h2>Education & Achievements</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-6" data-aos="fade-up">
-                    <h4 class="mb-4 text-center">Education</h4>
-                    <div class="card p-4 mb-3 shadow-sm">
-                        <h5 class="fw-bold">GVP College of Engineering (A)</h5>
-                        <p class="mb-1">B.Tech in Computer Science & Engineering (Data Science)</p>
-                        <p class="mb-1 text-muted">Nov 2022 – Jun 2026 | CGPA: 9.08/10</p>
-                    </div>
-                    <div class="card p-4 shadow-sm">
-                        <h5 class="fw-bold">Sri Sarada Vidya Nikentan</h5>
-                        <p class="mb-1">Intermediate (MPC)</p>
-                        <p class="mb-1 text-muted">Apr 2020 – Jun 2022 | Percentage: 95%</p>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                    <h4 class="mb-4 text-center">Achievements</h4>
-                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Ranked among the <strong>top 15</strong> in B.Tech and secured a <strong>top 5</strong> rank in Intermediate studies.</li>
-                        <li class="list-group-item">Earned the <strong>CodeChef Diamond Badge</strong> with a consistent coding streak of over <strong>140 days</strong>.</li>
-                        <li class="list-group-item">Currently a <strong>2 star coder</strong> in Codechef.</li>
-                        <li class="list-group-item">Maintained a consistent SGPA of <strong>8.6+</strong> across all semesters.</li>
-                        <li class="list-group-item">SIH Internal Round Qualifier for an Indoor Navigation System project (2024).</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="certifications" class="py-5 bg-light-section">
-        <div class="container">
-            <div class="section-title text-center" data-aos="fade-up">
-                <h2>Certifications</h2>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item" data-aos="fade-up"><i class="fas fa-award me-2 accent-text"></i><strong>ServiceNow Certified System Administrator (CSA)</strong></li>
-                        <li class="list-group-item" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-award me-2 accent-text"></i><strong>ServiceNow Certified Application Developer (CAD)</strong></li>
-                        <li class="list-group-item" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-award me-2 accent-text"></i><strong>NPTEL Certified:</strong> Ethical Hacking, Internet of Things (IoT)</li>
-                        <li class="list-group-item" data-aos="fade-up" data-aos-delay="300"><i class="fas fa-award me-2 accent-text"></i><strong>Cyberthreya Certified:</strong> Ethical Hacking, SOC Analyst, VAPT</li>
-                        <li class="list-group-item" data-aos="fade-up" data-aos-delay="400"><i class="fas fa-award me-2 accent-text"></i><strong>Zscaler Certified:</strong> Cybersecurity Fundamentals</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact-section py-5">
-        <div class="container">
-            <div class="section-title text-center mb-5" data-aos="fade-up">
-                <h2>Get In Touch</h2>
-                <p class="lead">I'm currently seeking new opportunities. Feel free to reach out!</p>
-            </div>
-            <div class="row">
+            <h2 class="text-center mb-5">Technical Arsenal</h2>
+            <div class="row g-4">
                 <div class="col-md-6" data-aos="fade-right">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+91 8688319072</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>devarakondasrivatsav@gmail.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-linkedin"></i>
-                            <span><a href="https://linkedin.com/in/d-srivatsav-2a7a90247" target="_blank" rel="noopener noreferrer">linkedin.com/in/d-srivatsav</a></span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-github"></i>
-                            <span><a href="https://github.com/srivatsavdevarakonda" target="_blank" rel="noopener noreferrer">github.com/srivatsavdevarakonda</a></span>
-                        </div>
+                    <div class="cyber-card">
+                        <canvas id="skillsChart"></canvas>
                     </div>
                 </div>
-                <div class="col-md-6" data-aos="fade-left">
-                    <form id="contactForm" class="contact-form">
-                        <div id="form-message" class="mb-3"></div>
-                        <div class="mb-3">
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required />
+                <div class="col-md-6">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="stat-card text-start">
+                                <small>Programming</small><br>
+                                <span class="text-info">Python, JavaScript (ES6+), Java, C / C++</span>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required />
+                        <div class="col-12">
+                            <div class="stat-card text-start">
+                                <small>Frontend Dev</small><br>
+                                <span class="text-info">HTML & CSS, React.js, Bootstrap, Tailwind CSS</span>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <textarea id="message" name="message" class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                        <div class="col-12">
+                            <div class="stat-card text-start">
+                                <small>Backend Dev</small><br>
+                                <span class="text-info">Node.js, Express.js, Flask, FastAPI, RESTful APIs</span>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Send Message</button>
-                    </form>
+                        <div class="col-12">
+                            <div class="stat-card text-start">
+                                <small>Databases</small><br>
+                                <span class="text-info">SQL (MySQL), NoSQL (MongoDB)</span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="stat-card text-start">
+                                <small>VAPT Tools</small><br>
+                                <span class="text-info">Nmap, Metasploit, Burp Suite</span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="stat-card text-start">
+                                <small>SOC Tools</small><br>
+                                <span class="text-info">Splunk, Wazuh, Snort</span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="stat-card text-start">
+                                <small>Version Control</small><br>
+                                <span class="text-info">Git, GitHub, GitLab</span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="stat-card text-start">
+                                <small>DevOps & Tools</small><br>
+                                <span class="text-info">Docker, CI/CD (GitHub Actions), VS Code, Jupyter</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-4 text-center">
+    <!-- [6] EXPERIENCE SECTION -->
+    <section id="experience" class="section-padding">
         <div class="container">
-            <p>&copy; 2025 Srivatsav Devarakonda. All rights reserved.</p>
+            <h2 class="text-center mb-5">Professional Journey</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <div class="experience-card" data-aos="fade-up">
+                        <div class="d-flex justify-content-between">
+                            <h5>Ethical Hacking Intern (Virtual)</h5>
+                            <span class="text-info">June 2025 – July 2025</span>
+                        </div>
+                        <p class="mb-1">InlighnTech</p>
+                        <ul class="small text-secondary">
+                            <li>Worked on ethical hacking fundamentals including reconnaissance, scanning, and basic exploitation in lab environments.</li>
+                            <li>Practiced using common security tools for vulnerability identification and reporting.</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="d-flex justify-content-between">
+                            <h5>VAPT Intern (Virtual)</h5>
+                            <span class="text-info">Mar 2025 – May 2025</span>
+                        </div>
+                        <p class="mb-1">Cyberthreya</p>
+                        <ul class="small text-secondary">
+                            <li>Performed VAPT on virtual machines using Kali Linux environments.</li>
+                            <li>Executed scanning, exploitation, and vulnerability reporting using tools like Nmap and Burp Suite.</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="d-flex justify-content-between">
+                            <h5>Cloud Security Intern (Virtual)</h5>
+                            <span class="text-info">Apr 2025 – Jun 2025</span>
+                        </div>
+                        <p class="mb-1">Zscaler</p>
+                        <ul class="small text-secondary">
+                            <li>Explored cloud security and Zero Trust Network Access (ZTNA) concepts for enterprise environments.</li>
+                            <li>Reviewed and documented strategies for securing cloud-based applications and traffic flows.</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="d-flex justify-content-between">
+                            <h5>Cyber Security Intern (Virtual)</h5>
+                            <span class="text-info">Jan 2025 – Feb 2025</span>
+                        </div>
+                        <p class="mb-1">Edunet Foundation (in collaboration with AICTE)</p>
+                        <ul class="small text-secondary">
+                            <li>Learnt core cyber security concepts including network security, threats, and basic incident response.</li>
+                            <li>Completed hands-on labs and assignments focused on practical security use cases.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [7] PROJECTS SECTION -->
+    <section id="projects" class="section-padding bg-black bg-opacity-25">
+        <div class="container">
+            <h2 class="text-center mb-5">Featured Work</h2>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="zoom-in">
+                    <div class="cyber-card">
+                        <h6>GVPXplore MERN Portal</h6>
+                        <p class="small text-secondary mb-3">Centralized MERN portal using MongoDB, Express.js, React.js, and Node.js with REST APIs, JWT-based authentication, and responsive UI styled with Bootstrap.</p>
+                        <a href="https://github.com/srivatsavdevarakonda/" target="_blank" class="btn btn-sm btn-outline-info me-2">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" target="_blank" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="cyber-card">
+                        <h6>Phishing Email Detection (In Progress)</h6>
+                        <p class="small text-secondary mb-3">SIEM-driven detection using Splunk searches, regex-based rules, and log analysis to flag phishing patterns in email metadata and content.</p>
+                        <a href="https://github.com/srivatsavdevarakonda/" target="_blank" class="btn btn-sm btn-outline-info me-2">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" target="_blank" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="cyber-card">
+                        <h6>Steganography Image Tool</h6>
+                        <p class="small text-secondary mb-3">Desktop steganography utility using Python, OpenCV, NumPy, and Tkinter to hide and extract messages from images via LSB techniques.</p>
+                        <a href="https://github.com/srivatsavdevarakonda/stego-project" target="_blank" class="btn btn-sm btn-outline-info me-2">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" target="_blank" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="cyber-card">
+                        <h6>Wordle Game</h6>
+                        <p class="small text-secondary mb-3">Interactive Wordle clone built in Python with Tkinter, featuring random word selection, GUI-based feedback, and stateful game logic.</p>
+                        <a href="https://github.com/srivatsavdevarakonda/wordle_game" target="_blank" class="btn btn-sm btn-outline-info me-2">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" target="_blank" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="cyber-card">
+                        <h6>Air Gesture Calci</h6>
+                        <p class="small text-secondary mb-3">Vision-based calculator leveraging Python, OpenCV, and MediaPipe hand tracking to map hand gestures to on-screen arithmetic operations.</p>
+                        <a href="https://github.com/srivatsavdevarakonda/air-gesture-calci" target="_blank" class="btn btn-sm btn-outline-info me-2">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" target="_blank" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="cyber-card">
+                        <h6>Snakes & Ladders Online</h6>
+                        <p class="small text-secondary mb-3">Real-time multiplayer Snakes & Ladders built with HTML, CSS, JavaScript, Node.js, Express.js, and Socket.io for synchronous gameplay.</p>
+                        <a href="https://github.com/srivatsavdevarakonda/snakes-and-ladders-online" target="_blank" class="btn btn-sm btn-outline-info me-2">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" target="_blank" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [8] EDUCATION SECTION -->
+    <section id="education" class="section-padding">
+        <div class="container">
+            <h2 class="text-center mb-5">Education</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-8">
+                    <div class="cyber-card">
+                        <div class="d-flex justify-content-between">
+                            <h5>B.Tech in CSE (Data Science)</h5>
+                            <span class="text-info">Nov 2022 – Jun 2026</span>
+                        </div>
+                        <p class="mb-1">GVP College of Engineering (A)</p>
+                        <p class="small text-secondary m-0">CGPA: 9.08/10</p>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="cyber-card">
+                        <div class="d-flex justify-content-between">
+                            <h5>Intermediate (MPC)</h5>
+                            <span class="text-info">Apr 2020 – Jun 2022</span>
+                        </div>
+                        <p class="mb-1">Sri Sarada Vidya Nikentan</p>
+                        <p class="small text-secondary m-0">Percentage: 95%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [9] CERTIFICATIONS SECTION -->
+    <section id="certifications" class="section-padding bg-black bg-opacity-25">
+        <div class="container">
+            <h2 class="text-center mb-5">Certifications</h2>
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="trust-badge">
+                        <h6>ServiceNow CSA</h6>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="trust-badge">
+                        <h6>ServiceNow CAD</h6>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="trust-badge">
+                        <h6>NPTEL Ethical Hacking</h6>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="trust-badge">
+                        <h6>NPTEL IoT</h6>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="trust-badge">
+                        <h6>Cyberthreya VAPT</h6>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="trust-badge">
+                        <h6>Cyberthreya SOC Analyst</h6>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="trust-badge">
+                        <h6>Cyberthreya Ethical Hacking</h6>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="trust-badge">
+                        <h6>Zscaler Cybersecurity</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [10] ACHIEVEMENTS SECTION -->
+    <section id="achievements" class="section-padding">
+        <div class="container text-center">
+            <h2 class="mb-5">Key Achievements</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <h5>🎓 Top 15 Rank</h5>
+                        <p class="small m-0">B.Tech CGPA 9.08/10 (GVP College of Engineering)</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <h5>⭐ CodeChef Diamond</h5>
+                        <p class="small m-0">140+ day streak, 2-Star Coder (400+ problems)</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <h5>🏆 SIH 2024 Qualifier</h5>
+                        <p class="small m-0">Smart India Hackathon (Indoor Navigation System)</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <h5>📚 95% Intermediate</h5>
+                        <p class="small m-0">Top 5 Rank (Sri Sarada Vidya Nikentan)</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <h5>📈 Consistent Excellence</h5>
+                        <p class="small m-0">8.6+ SGPA across all semesters</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <h5>🎯 B.Tech Data Science</h5>
+                        <p class="small m-0">GVP College of Engineering (2022-2026)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [11] CONTACT FOOTER -->
+    <footer id="contact" class="security-footer text-center">
+        <div class="shield-icon">
+            <i class="fas fa-shield-alt"></i>
+        </div>
+        <div class="container">
+            <h2 class="mb-4">Get In Touch</h2>
+            <div class="mb-4">
+                <a href="https://github.com/srivatsavdevarakonda" target="_blank" class="text-white mx-3 fs-3">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/d-srivatsav-2a7a90247" target="_blank" class="text-white mx-3 fs-3">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="mailto:devarakondasrivatsav@gmail.com" class="text-white mx-3 fs-3">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <p class="small text-secondary m-0">&copy; 2025 Srivatsav Devarakonda | Secure. Innovate. Deploy.</p>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1200,
+            once: true,
+            offset: 100,
+            easing: 'ease-out-cubic'
+        });
+
+        // Typing Animation
+        new Typed('.typing', {
+            strings: ['Systems Engineer', 'Data Scientist', 'Cybersecurity Expert', 'ServiceNow Developer'],
+            typeSpeed: 60,
+            backSpeed: 40,
+            backDelay: 2000,
+            loop: true,
+            smartBackspace: true
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll Progress Indicator
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+
+        // Smooth Scroll for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Skill Radar Chart with Animation
+        const ctxChart = document.getElementById('skillsChart').getContext('2d');
+        const skillsChart = new Chart(ctxChart, {
+            type: 'radar',
+            data: {
+                labels: ['ML/AI', 'Cybersecurity', 'Backend', 'Data Structures', 'ServiceNow', 'Comp. Programming'],
+                datasets: [{
+                    label: 'Skill Maturity',
+                    data: [85, 90, 80, 95, 8, 90],
+                    backgroundColor: 'rgba(0, 217, 255, 0.2)',
+                    borderColor: '#00d9ff',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#6366f1',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointHoverBackgroundColor: '#00d9ff',
+                    pointHoverBorderColor: '#fff',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        angleLines: {
+                            color: 'rgba(0, 217, 255, 0.1)',
+                            lineWidth: 1
+                        },
+                        grid: {
+                            color: 'rgba(0, 217, 255, 0.1)',
+                            circular: true
+                        },
+                        pointLabels: {
+                            color: '#cbd5e1',
+                            font: {
+                                size: 12,
+                                weight: '600'
+                            }
+                        },
+                        ticks: {
+                            display: false,
+                            stepSize: 20
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                        titleColor: '#00d9ff',
+                        bodyColor: '#fff',
+                        borderColor: '#00d9ff',
+                        borderWidth: 1,
+                        padding: 12,
+                        displayColors: false,
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.r + '% proficiency';
+                            }
+                        }
+                    }
+                },
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                }
+            }
+        });
+
+        // Enhanced Particle System
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            
+            const particleCount = Math.min(100, Math.floor(canvas.width * canvas.height / 10000));
+            
+            for(let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 2 + 1,
+                    opacity: Math.random() * 0.5 + 0.2
+                });
+            }
+        }
+
+        function drawConnections() {
+            for(let i = 0; i < particles.length; i++) {
+                for(let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if(distance < 120) {
+                        ctx.strokeStyle = `rgba(0, 217, 255, ${0.15 * (1 - distance / 120)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                
+                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                
+                // Mouse interaction
+                if(mouse.x !== null && mouse.y !== null) {
+                    const dx = mouse.x - p.x;
+                    const dy = mouse.y - p.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if(distance < 150) {
+                        const force = (150 - distance) / 150;
+                        p.x -= dx * force * 0.01;
+                        p.y -= dy * force * 0.01;
+                    }
+                }
+                
+                ctx.fillStyle = `rgba(0, 217, 255, ${p.opacity})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            drawConnections();
+            requestAnimationFrame(animate);
+        }
+
+        // Mouse tracking
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        window.addEventListener('resize', init);
+        
+        init();
+        animate();
+
+        // Add counter animation for stats
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('aos-animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('[data-aos]').forEach(el => observer.observe(el));
+
+        // ==========================================================================
+// INTERACTIVE TERMINAL NAVIGATOR
+// ==========================================================================
+class InteractiveTerminal {
+    constructor() {
+        this.prompt = document.getElementById('terminalPrompt');
+        this.cursor = document.getElementById('cursor');
+        this.commandInput = document.getElementById('commandInput');
+        this.terminal = document.getElementById('interactiveTerminal');
+        this.currentCommand = '';
+        this.isTyping = false;
+        
+        this.commands = {
+            'skills': { section: '#skills', response: 'cd skills | Loading Technical Arsenal... Python, Nmap, Docker deployed 🚀' },
+            'experience': { section: '#experience', response: 'cd experience | Professional Journey loaded: Zscaler, Cyberthreya, InlighnTech' },
+            'projects': { section: '#projects', response: 'cd projects | 6 projects online: MERN Portal, Air Gesture, Snakes & Ladders' },
+            'education': { section: '#education', response: 'cd education | B.Tech CSE(Data Science) | CGPA: 9.08/10 @ GVPCE' },
+            'certifications': { section: '#certifications', response: 'ServiceNow CSA/CAD, NPTEL Ethical Hacking, Zscaler Certified' },
+            'achievements': { section: '#achievements', response: 'CodeChef 2⭐ Diamond, SIH 2024 Qualifier, Top 15 Rank' },
+            'clear': { response: 'Terminal cleared! Use: skills | experience | projects | education | certifications | achievements' },
+            'help': { response: 'Available: skills, experience, projects, education, certifications, achievements, clear, help' }
+        };
+        
+        this.init();
+    }
+    
+    init() {
+        // Listen for keyboard input when terminal is focused
+        document.addEventListener('keydown', (e) => {
+            if (this.isTyping || !this.terminal.matches(':hover')) return;
+            
+            if (e.key === 'Enter') {
+                this.executeCommand();
+            } else if (e.key === 'Backspace') {
+                this.currentCommand = this.currentCommand.slice(0, -1);
+                this.updateInput();
+            } else if (e.key.length === 1 && e.key.match(/[a-z]/i)) {
+                this.currentCommand += e.key.toLowerCase();
+                this.updateInput();
+            }
+        });
+        
+        // Navbar links trigger terminal commands
+        document.querySelectorAll('.nav-link[href]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const section = link.getAttribute('href');
+                const cmd = this.getCommandFromSection(section);
+                if (cmd) {
+                    e.preventDefault();
+                    this.typeCommand(cmd);
+                }
+            });
+        });
+    }
+    
+    getCommandFromSection(section) {
+        for (let [cmd, data] of Object.entries(this.commands)) {
+            if (data.section === section) return cmd;
+        }
+        return null;
+    }
+    
+    typeCommand(command) {
+        if (this.isTyping) return;
+        this.isTyping = true;
+        this.currentCommand = command;
+        this.animateTyping();
+    }
+    
+    updateInput() {
+        this.commandInput.textContent = this.currentCommand;
+    }
+    
+    animateTyping() {
+        const command = this.currentCommand;
+        this.commandInput.textContent = '';
+        
+        let i = 0;
+        const typeInterval = setInterval(() => {
+            this.commandInput.textContent = command.slice(0, i);
+            i++;
+            if (i > command.length) {
+                clearInterval(typeInterval);
+                setTimeout(() => this.executeCommand(), 500);
+            }
+        }, 80);
+    }
+    
+    executeCommand() {
+        const cmd = this.currentCommand.trim();
+        this.isTyping = false;
+        
+        if (!cmd) {
+            this.resetPrompt();
+            return;
+        }
+        
+        // Add new line with command
+        this.addOutputLine(`<span class="text-info">srivatsav@GVP:~$</span> ${cmd}`);
+        
+        const commandData = this.commands[cmd] || { response: `Command '${cmd}' not found. Type 'help' for available commands.` };
+        
+        // Show loading
+        this.addOutputLine(`<span class="text-yellow">srivatsav@GVP:~$ ${commandData.response.split(' | ')[0]} <span class="loading-dots"></span></span>`);
+        
+        setTimeout(() => {
+            // Show result
+            this.addOutputLine(`<span class="text-success">[✓] ${commandData.response}</span>`);
+            
+            // Navigate if section exists
+            if (commandData.section) {
+                setTimeout(() => {
+                    document.querySelector(commandData.section)?.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }, 1000);
+            }
+            
+            this.resetPrompt();
+        }, 1500);
+    }
+    
+    addOutputLine(html) {
+        const line = document.createElement('div');
+        line.className = 'terminal-line';
+        line.style.animationDelay = '0s';
+        line.innerHTML = html;
+        this.terminal.insertBefore(line, this.prompt);
+        
+        // Auto-scroll
+        this.terminal.scrollTop = this.terminal.scrollHeight;
+    }
+    
+    resetPrompt() {
+        this.currentCommand = '';
+        this.commandInput.textContent = '';
+        this.cursor.classList.add('blink');
+        setTimeout(() => this.cursor.classList.remove('blink'), 100);
+    }
+}
+
+// Initialize terminal
+new InteractiveTerminal();
+
+    </script>
 </body>
 </html>
