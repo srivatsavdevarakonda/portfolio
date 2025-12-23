@@ -217,7 +217,7 @@ function initParticles() {
     animate();
 }
 
-// [8] INTERACTIVE TERMINAL - THE PROXY-MIRROR FIX
+// [8] INTERACTIVE TERMINAL - THE HARD-SYNC FIX
 class InteractiveTerminal {
     constructor() {
         this.prompt = document.getElementById('terminalPrompt');
@@ -234,7 +234,7 @@ class InteractiveTerminal {
         this.mobileInput.setAttribute('autocapitalize', 'none');
         this.mobileInput.setAttribute('spellcheck', 'false');
         
-        // inputmode="email" is used to force a literal keyboard and prevent text-flipping bugs
+        // Using "password" type (temporarily) or "email" can stop the "composition" flip
         this.mobileInput.setAttribute('inputmode', 'email'); 
 
         this.fileSystem = {
@@ -260,7 +260,7 @@ class InteractiveTerminal {
 
     showWelcomeGuide() {
         setTimeout(() => {
-            this.addOutputLine('<span class="text-success">[BOOT]</span> Srivatsav_D Terminal v2.4');
+            this.addOutputLine('<span class="text-success">[BOOT]</span> Srivatsav_D Terminal v2.5');
             this.addOutputLine('<span class="text-cyan">💡 TIP:</span> Tap here and type commands');
         }, 400);
     }
@@ -272,12 +272,20 @@ class InteractiveTerminal {
             this.mobileInput.focus();
         });
 
-        // Mirror the value instantly on every change (typing OR backspacing)
-        this.mobileInput.addEventListener('input', () => {
+        // "Hard-Sync": This catches deletions (backspace) that other events miss on mobile
+        const syncDisplay = () => {
             this.commandInput.textContent = this.mobileInput.value;
+        };
+
+        this.mobileInput.addEventListener('input', syncDisplay);
+        
+        // Extra catch for mobile keyboards that don't trigger 'input' on backspace
+        this.mobileInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Backspace' || e.keyCode === 8) {
+                syncDisplay();
+            }
         });
 
-        // Handle the Enter/Submit key on mobile keyboards
         this.mobileInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.keyCode === 13) {
                 e.preventDefault();
@@ -301,14 +309,15 @@ class InteractiveTerminal {
             this.addOutputLine(`<span class="text-success">[✓] ${this.commands[cmd].response}</span>`);
             if (this.commands[cmd].section) {
                 setTimeout(() => {
-                    const el = document.querySelector(this.commands[cmd].section);
-                    if(el) el.scrollIntoView({ behavior: 'smooth' });
+                    const target = document.querySelector(this.commands[cmd].section);
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
                 }, 400);
             }
         } else if (cmd !== '') {
             this.addOutputLine(`<span class="text-danger">[❌] Command '${cmd}' not found.</span>`);
         }
 
+        // Complete reset for the next command
         this.mobileInput.value = '';
         this.commandInput.textContent = '';
         this.terminal.scrollTop = this.terminal.scrollHeight;
