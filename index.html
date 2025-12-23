@@ -45,38 +45,106 @@
         </div>
     </nav>
 
-    <div class="terminal-body" id="interactiveTerminal">
+    <section id="home" class="hero">
+  <div class="container">
+    <div class="row align-items-center gy-5">
 
-  <div class="terminal-line">
-    <span class="text-info">srivatsav@GVP:~$</span>
-    <span class="blink">python3 profile.py</span>
+      <!-- LEFT CONTENT -->
+      <div class="col-lg-7" data-aos="fade-right">
+        <h1 class="hero-title">SRIVATSAV DEVARAKONDA</h1>
+
+        <h3 class="mb-4">
+          <span class="typing" style="color: var(--accent-cyan);"></span>
+        </h3>
+
+        <p class="lead text-secondary mb-4">
+          Passionate Computer Science undergraduate at <strong>GVPCE(A)</strong> specializing in
+          <strong>Data Science</strong>. Bridging the gap between <strong>AI/ML</strong> and
+          <strong>Cybersecurity</strong> to architect scalable, secure systems.
+        </p>
+
+        <!-- STATS -->
+        <div class="row g-3 mb-4">
+          <div class="col-4">
+            <div class="stat-card">
+              <i class="fas fa-star text-warning"></i>
+              <small>CodeChef</small>
+              <strong>2 Star</strong>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="stat-card">
+              <i class="fas fa-code text-info"></i>
+              <small>LeetCode</small>
+              <strong>1451</strong>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="stat-card">
+              <i class="fas fa-graduation-cap text-success"></i>
+              <small>CGPA</small>
+              <strong>9.08</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="terminal-cta">
+          <i class="fas fa-hand-point-right me-2"></i>
+          <span>Explore the Interactive Terminal</span>
+        </div>
+      </div>
+
+      <!-- RIGHT TERMINAL -->
+      <div class="col-lg-5" data-aos="zoom-in">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+            <span class="ms-2 text-secondary small">identity.py</span>
+          </div>
+
+          <div class="terminal-body" id="interactiveTerminal">
+
+            <div class="terminal-line">
+              <span class="text-info">srivatsav@GVP:~$</span>
+              <span class="blink">python3 profile.py</span>
+            </div>
+
+            <div class="terminal-line text-success">
+              [✓] User: Srivatsav_D | Skills: Data Science + Cybersecurity
+            </div>
+
+            <div class="terminal-line text-success">
+              [✓] Projects Loaded: 6 (MERN, OpenCV, Docker)
+            </div>
+
+            <!-- ✅ REQUIRED PROMPT -->
+            <div class="terminal-prompt" id="terminalPrompt">
+              <span class="text-info">srivatsav@GVP:~$</span>
+              <span id="commandInput"></span>
+              <span class="blink" id="cursor">_</span>
+            </div>
+
+            <!-- ✅ MOBILE KEYBOARD INPUT (INVISIBLE) -->
+            <input
+              type="text"
+              id="mobileTerminalInput"
+              autocomplete="off"
+              autocapitalize="none"
+              spellcheck="false"
+            />
+
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
-
-  <div class="terminal-line text-success">
-    [✓] User: Srivatsav_D | Skills: Data Science + Cybersecurity
-  </div>
-
-  <div class="terminal-line text-success">
-    [✓] Projects Loaded: 6 (MERN, OpenCV, Docker)
-  </div>
-
-  <!-- ✅ ADD THIS (HIDDEN INPUT FOR MOBILE KEYBOARD) -->
-  <input
-    type="text"
-    id="mobileTerminalInput"
-    autocomplete="off"
-    autocapitalize="none"
-    spellcheck="false"
-  />
-
-  <!-- EXISTING PROMPT -->
-  <div class="terminal-prompt" id="terminalPrompt">
-    <span class="text-info">srivatsav@GVP:~$</span>
-    <span id="commandInput"></span>
-    <span class="blink" id="cursor">_</span>
-  </div>
-
-</div>
+</section>
 
 
 
