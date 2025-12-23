@@ -224,6 +224,7 @@ class InteractiveTerminal {
         this.cursor = document.getElementById('cursor');
         this.commandInput = document.getElementById('commandInput');
         this.terminal = document.getElementById('interactiveTerminal');
+        this.mobileInput = document.getElementById('mobileTerminalInput');
         if (!this.prompt || !this.cursor || !this.commandInput || !this.terminal) return;
         
         this.currentCommand = '';
@@ -258,19 +259,46 @@ class InteractiveTerminal {
     }
     
     init() {
-        document.addEventListener('keydown', (e) => {
-            if (this.isTyping || !this.terminal.matches(':hover')) return;
-            if (e.key === 'Enter') {
-                this.executeCommand();
-            } else if (e.key === 'Backspace') {
-                this.currentCommand = this.currentCommand.slice(0, -1);
-                this.updateInput();
-            } else if (e.key.length === 1 && e.key.match(/[a-z0-9._-]/i)) {
-                this.currentCommand += e.key.toLowerCase();
-                this.updateInput();
-            }
-        });
-    }
+
+    /* 🔹 MOBILE: focus hidden input on tap */
+    this.terminal.addEventListener('click', () => {
+        this.mobileInput?.focus();
+    });
+
+    /* 🔹 MOBILE: capture typing */
+    this.mobileInput?.addEventListener('input', (e) => {
+        this.currentCommand = e.target.value.toLowerCase();
+        this.updateInput();
+    });
+
+    this.mobileInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            this.executeCommand();
+            this.mobileInput.value = '';
+        }
+        if (e.key === 'Backspace') {
+            this.currentCommand = this.currentCommand.slice(0, -1);
+            this.updateInput();
+        }
+    });
+
+    /* 🔹 DESKTOP: normal keyboard */
+    document.addEventListener('keydown', (e) => {
+        if (this.isTyping) return;
+
+        if (e.key === 'Enter') {
+            this.executeCommand();
+        } else if (e.key === 'Backspace') {
+            this.currentCommand = this.currentCommand.slice(0, -1);
+            this.updateInput();
+        } else if (e.key.length === 1 && e.key.match(/[a-z0-9._-]/i)) {
+            this.currentCommand += e.key.toLowerCase();
+            this.updateInput();
+        }
+    });
+}
+
 
     updateInput() { this.commandInput.textContent = this.currentCommand; }
 
