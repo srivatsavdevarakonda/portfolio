@@ -217,7 +217,7 @@ function initParticles() {
     animate();
 }
 
-// [8] INTERACTIVE TERMINAL - THE MOBILE STATE-SYNC FIX
+// [8] INTERACTIVE TERMINAL - THE BUFFER-PROOF MOBILE FIX
 class InteractiveTerminal {
     constructor() {
         this.prompt = document.getElementById('terminalPrompt');
@@ -228,12 +228,14 @@ class InteractiveTerminal {
 
         if (!this.prompt || !this.mobileInput) return;
 
-        // Force-disable all mobile "smart" features that cause character flipping
+        // Force-disable all "smart" features that hijack the input buffer
         this.mobileInput.setAttribute('autocomplete', 'off');
         this.mobileInput.setAttribute('autocorrect', 'off');
         this.mobileInput.setAttribute('autocapitalize', 'none');
         this.mobileInput.setAttribute('spellcheck', 'false');
-        this.mobileInput.setAttribute('inputmode', 'text'); 
+        
+        // inputmode "email" or "url" often forces a more literal keyboard layout
+        this.mobileInput.setAttribute('inputmode', 'url'); 
 
         this.fileSystem = {
             'about.txt': 'Computer Science student | Data Science + Cybersecurity',
@@ -258,7 +260,7 @@ class InteractiveTerminal {
 
     showWelcomeGuide() {
         setTimeout(() => {
-            this.addOutputLine('<span class="text-success">[BOOT]</span> Srivatsav_D Terminal v2.2');
+            this.addOutputLine('<span class="text-success">[BOOT]</span> Srivatsav_D Terminal v2.3');
             this.addOutputLine('<span class="text-cyan">💡 TIP:</span> Tap here and type commands');
         }, 400);
     }
@@ -270,13 +272,14 @@ class InteractiveTerminal {
             this.mobileInput.focus();
         });
 
-        // Use 'beforeinput' and 'input' to catch changes before the mobile browser flips them
-        this.mobileInput.addEventListener('input', (e) => {
-            // This ensures the display exactly matches the internal buffer
-            this.commandInput.textContent = this.mobileInput.value;
+        // FIX: Use 'input' event but also a small timeout to let the mobile buffer settle
+        this.mobileInput.addEventListener('input', () => {
+            requestAnimationFrame(() => {
+                this.commandInput.textContent = this.mobileInput.value;
+            });
         });
 
-        // Capture the "Enter" action specifically for mobile "Go/Search/Return" keys
+        // FIX: Mobile "Enter" key fix (handles the checkmark/arrow on the phone keyboard)
         this.mobileInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.keyCode === 13) {
                 e.preventDefault();
@@ -286,11 +289,10 @@ class InteractiveTerminal {
     }
 
     executeCommand() {
-        const rawValue = this.mobileInput.value;
-        const cmd = rawValue.trim().toLowerCase();
+        const fullInput = this.mobileInput.value;
+        const cmd = fullInput.trim().toLowerCase();
 
-        // Output exactly what was typed
-        this.addOutputLine(`<span class="text-info">srivatsav@GVP:~$</span> <span class="text-white">${rawValue}</span>`);
+        this.addOutputLine(`<span class="text-info">srivatsav@GVP:~$</span> <span class="text-white">${fullInput}</span>`);
 
         if (cmd === 'cls' || cmd === 'clear') {
             this.terminal.querySelectorAll('.terminal-line').forEach(l => l.remove());
@@ -306,10 +308,9 @@ class InteractiveTerminal {
                 }, 400);
             }
         } else if (cmd !== '') {
-            this.addOutputLine(`<span class="text-danger">[❌] Command '${cmd}' not found. Try <span class="text-white">help</span></span>`);
+            this.addOutputLine(`<span class="text-danger">[❌] Command '${cmd}' not found.</span>`);
         }
 
-        // Complete reset for the next command
         this.mobileInput.value = '';
         this.commandInput.textContent = '';
         this.terminal.scrollTop = this.terminal.scrollHeight;
