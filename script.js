@@ -1,116 +1,424 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize AOS (Animate On Scroll)
-    AOS.init({
-        duration: 800,
-        once: true,
-        offset: 50,
-    });
+// ==========================================================================
+// COMPLETE PORTFOLIO SCRIPTING.JS
+// ==========================================================================
 
-    // Typed.js for the hero section
-    if (document.querySelector('.typing')) {
-        new Typed('.typing', {
-            strings: ['Srivatsav Devarakonda', 'a Cybersecurity Analyst', 'an AI Tools Enthusiast', 'a Full Stack Developer'],
-            typeSpeed: 70,
-            backSpeed: 40,
-            loop: true,
-            showCursor: true,
-            cursorChar: '|',
+// Wait for DOM + External Libraries
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize everything safely
+    initAOS();
+    initTyped();
+    initNavbarScroll();
+    initScrollProgress();
+    initSmoothScroll();
+    initSkillsChart();
+    initProjectsSwiper(); 
+    initParticles();
+    initEmailJS();
+    new InteractiveTerminal();
+});
+
+// [1] AOS ANIMATION LIBRARY
+function initAOS() {
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 1200,
+            once: true,
+            offset: 100,
+            easing: 'ease-out-cubic'
         });
     }
+}
 
-    // Theme Toggle (Light/Dark Mode)
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const body = document.body;
+// [2] TYPING ANIMATION
+let typedInstance = null;
 
-    function applyTheme(theme) {
-        body.classList.remove('light-mode', 'dark-mode');
-        body.classList.add(theme);
-        localStorage.setItem('theme', theme);
-        
-        if (theme === 'dark-mode') {
-            themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
-        } else {
-            themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+function initTyped() {
+    const target = document.querySelector('.typing');
+    if (!target || typeof Typed === 'undefined') return;
+
+    // Prevent duplicate initialization
+    if (typedInstance) {
+        typedInstance.destroy();
+        typedInstance = null;
+    }
+
+    typedInstance = new Typed('.typing', {
+        strings: [
+        'Data Science &amp; AI Enthusiast',
+        'Cybersecurity &amp; VAPT Practitioner',
+        'Backend &amp; Systems Developer',
+        'Full-Stack Web Developer',
+        'Cloud &amp; DevOps Explorer',
+        'Security Automation Enthusiast'
+        ],
+
+        typeSpeed: 55,        // smoother typing
+        backSpeed: 35,        // smoother deleting
+        startDelay: 800,      // wait for page load
+        backDelay: 1800,      // ⭐ IMPORTANT (was your main issue)
+
+        loop: true,
+        smartBackspace: true,
+        showCursor: true,
+        cursorChar: '_',
+    });
+}
+
+
+// [3] NAVBAR SCROLL EFFECT
+function initNavbarScroll() {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+    
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+}
+
+// [4] SCROLL PROGRESS BAR
+function initScrollProgress() {
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        const scrollElement = document.getElementById('scrollProgress');
+        if (scrollElement) scrollElement.style.width = scrolled + '%';
+    });
+}
+
+// [5] SMOOTH SCROLL NAVIGATION
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
+
+// [6] SKILLS RADAR CHART (Chart.js)
+function initSkillsChart() {
+    const skillsCanvas = document.getElementById('skillsChart');
+    if (!skillsCanvas || typeof Chart === 'undefined') return;
+    
+    const ctxChart = skillsCanvas.getContext('2d');
+    new Chart(ctxChart, {
+        type: 'radar',
+        data: {
+            labels: [
+                'Programming', 'Frontend', 'Backend', 
+                'Databases', 'Cybersecurity', 'DevOps/Tools'
+            ],
+            datasets: [{
+                label: 'Skill Maturity',
+                data: [80, 90, 70, 60, 90, 75],
+                backgroundColor: 'rgba(0, 217, 255, 0.2)',
+                borderColor: '#00d9ff',
+                borderWidth: 3,
+                pointBackgroundColor: '#6366f1',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 9,
+                tension: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 100,
+                    angleLines: { color: 'rgba(0, 217, 255, 0.1)' },
+                    grid: { color: 'rgba(0, 217, 255, 0.1)', circular: true },
+                    pointLabels: { 
+                        color: '#cbd5e1', 
+                        font: { size: 12, weight: '600' } 
+                    },
+                    ticks: { display: false }
+                }
+            },
+            plugins: { 
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                    titleColor: '#00d9ff',
+                    bodyColor: '#fff',
+                    borderColor: '#00d9ff',
+                    callbacks: {
+                        label: ctx => `${ctx.label}: ${ctx.parsed.r}%`
+                    }
+                }
+            },
+            animation: { duration: 2500, easing: 'easeOutQuart' }
+        }
+    });
+}
+
+// [7] PARTICLE BACKGROUND SYSTEM
+function initParticles() {
+    const canvas = document.getElementById('bg-canvas');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = { x: null, y: null };
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    function initParticleArray() {
+        resizeCanvas();
+        particles = [];
+        const particleCount = Math.min(100, Math.floor(canvas.width * canvas.height / 10000));
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                size: Math.random() * 2 + 1,
+                opacity: Math.random() * 0.5 + 0.2
+            });
         }
     }
 
-    const savedTheme = localStorage.getItem('theme') || 'light-mode';
-    applyTheme(savedTheme);
-
-    themeToggleBtn.addEventListener('click', () => {
-        const newTheme = body.classList.contains('light-mode') ? 'dark-mode' : 'light-mode';
-        applyTheme(newTheme);
-    });
-
-    // Smooth Scrolling for Navigation Links
-    document.querySelectorAll('.nav-link, .hero-buttons a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href.startsWith('#')) {
-                e.preventDefault();
-                const targetElement = document.querySelector(href);
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-            const navbarToggler = document.querySelector('.navbar-toggler');
-            const navbarCollapse = document.getElementById('navbarNav');
-            if (navbarCollapse.classList.contains('show')) {
-                navbarToggler.click();
-            }
-        });
-    });
-
-    // Scroll-down icon behavior
-    const scrollDownIcon = document.querySelector('.scroll-down a');
-    if (scrollDownIcon) {
-        scrollDownIcon.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-        });
-    }
-
-    // Skill Card Flip functionality
-    const skillCards = document.querySelectorAll('.skill-card');
-    skillCards.forEach(card => {
-        card.addEventListener('click', () => {
-            card.classList.toggle('is-flipped');
-        });
-    });
-
-    // EmailJS Contact Form
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        (function() {
-            emailjs.init({
-                publicKey: "YOUR_PUBLIC_KEY", // <-- PASTE YOUR PUBLIC KEY HERE
-            });
-        })();
-
-        contactForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const formMessage = document.getElementById('form-message');
-            const submitButton = this.querySelector('button[type="submit"]');
-
-            const serviceID = 'YOUR_SERVICE_ID'; // <-- PASTE YOUR SERVICE ID HERE
-            const templateID = 'YOUR_TEMPLATE_ID'; // <-- PASTE YOUR TEMPLATE ID HERE
-
-            submitButton.disabled = true;
-            submitButton.innerHTML = 'Sending...';
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
             
-            emailjs.sendForm(serviceID, templateID, this)
-                .then(() => {
-                    formMessage.innerHTML = '<div class="alert alert-success">Message sent successfully!</div>';
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = 'Send Message';
-                    contactForm.reset();
-                }, (err) => {
-                    formMessage.innerHTML = `<div class="alert alert-danger">Failed to send message. Please try again.</div>`;
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = 'Send Message';
-                    console.error('EmailJS Error:', JSON.stringify(err));
-                });
+            ctx.fillStyle = `rgba(0, 217, 255, ${p.opacity})`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', initParticleArray);
+    window.addEventListener('mousemove', (e) => { 
+        mouse.x = e.clientX; 
+        mouse.y = e.clientY; 
+    });
+    
+    initParticleArray();
+    animate();
+}
+
+// [8] INTERACTIVE TERMINAL (Your existing code - CORRECTED)
+class InteractiveTerminal {
+    constructor() {
+        this.prompt = document.getElementById('terminalPrompt');
+        this.cursor = document.getElementById('cursor');
+        this.commandInput = document.getElementById('commandInput');
+        this.terminal = document.getElementById('interactiveTerminal');
+        if (!this.prompt || !this.cursor || !this.commandInput || !this.terminal) return;
+        
+        this.currentCommand = '';
+        this.isTyping = false;
+        
+        this.fileSystem = {
+            'about.txt': 'Computer Science student | Data Science + Cybersecurity | GVPCE(A)',
+            'contact.info': 'devarakondasrivatsav@gmail.com | LinkedIn: linkedin.com/in/srivatsav-d',
+            'skills.md': 'Python, JS, React, Docker, Nmap, Splunk, Metasploit, Flask'
+        };
+
+        this.commands = {
+            'about':{ section: '#about', response: '→ About Me section opened! 👨‍💻' },
+            'skills': { section: '#skills', response: '→ Technical Arsenal loaded! 🚀' },
+            'experience': { section: '#experience', response: '→ Professional Journey accessed! 💼' },
+            'projects': { section: '#projects', response: '→ Featured Work deployed! 🌟' },
+            'education': { section: '#education', response: '→ Education verified! 🎓' },
+            'certifications': { section: '#certifications', response: '→ Certifications unlocked! 🏆' },
+            'achievements': { section: '#achievements', response: '→ Achievements displayed! ⭐' },
+            'help': { response: '<strong>📋 NAV:</strong> Try entering any section name:\n about, skills, projects, experience, education, certifications, achievements<br><strong>⚙️ UTIL:</strong> cls exit ls cat help' }
+        };
+        
+        this.showWelcomeGuide();
+        this.init();
+    }
+    
+    showWelcomeGuide() {
+        setTimeout(() => {
+            this.addOutputLine('<span class="text-success">[BOOT]</span> Srivatsav_D Terminal v2.0');
+            this.addOutputLine('<span class="text-cyan">💡 TIP:</span> Type sections to navigate | cls/ls/exit');
+        }, 500);
+    }
+    
+    init() {
+        document.addEventListener('keydown', (e) => {
+            if (this.isTyping || !this.terminal.matches(':hover')) return;
+            if (e.key === 'Enter') {
+                this.executeCommand();
+            } else if (e.key === 'Backspace') {
+                this.currentCommand = this.currentCommand.slice(0, -1);
+                this.updateInput();
+            } else if (e.key.length === 1 && e.key.match(/[a-z0-9._-]/i)) {
+                this.currentCommand += e.key.toLowerCase();
+                this.updateInput();
+            }
         });
     }
-});
+
+    updateInput() { this.commandInput.textContent = this.currentCommand; }
+
+    executeCommand() {
+        const fullInput = this.currentCommand.trim();
+        const [cmd, ...args] = fullInput.split(' ');
+        this.isTyping = false;
+        
+        if (!cmd) return this.resetPrompt();
+
+        this.addOutputLine(`<span class="text-info">srivatsav@GVP:~$</span> <span class="text-white">${fullInput}</span>`);
+
+        switch (cmd) {
+            case 'cls':
+                this.terminal.querySelectorAll('.terminal-line').forEach(line => line.remove());
+                this.showWelcomeGuide();
+                return this.resetPrompt();
+                
+            case 'exit':
+                this.addOutputLine('<span class="text-magenta">[EXIT] Goodbye! 👋</span>');
+                setTimeout(() => {
+                    this.terminal.parentElement.style.opacity = '0';
+                    setTimeout(() => this.terminal.parentElement.style.display = 'none', 300);
+                }, 1000);
+                return;
+                
+            case 'ls':
+                this.addOutputLine(`<span class="text-cyan">📁 ${Object.keys(this.fileSystem).join('  ')}</span>`);
+                break;
+                
+            default:
+                if (this.commands[cmd]) {
+                    this.addOutputLine(`<span class="text-success">[✓] ${this.commands[cmd].response}</span>`);
+                    if (this.commands[cmd].section) {
+                        setTimeout(() => {
+                            document.querySelector(this.commands[cmd].section)?.scrollIntoView({ 
+                                behavior: 'smooth', block: 'start' 
+                            });
+                        }, 800);
+                    }
+                } else {
+                    this.addOutputLine('<span class="text-danger">[❌] Unknown: <span class="text-white">help</span></span>');
+                }
+                break;
+        }
+        this.resetPrompt();
+    }
+
+    addOutputLine(html) {
+        const line = document.createElement('div');
+        line.className = 'terminal-line';
+        line.innerHTML = html;
+        this.terminal.insertBefore(line, this.prompt);
+        this.terminal.scrollTop = this.terminal.scrollHeight;
+        line.style.opacity = '0';
+        line.style.transform = 'translateX(20px)';
+        setTimeout(() => {
+            line.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+            line.style.opacity = '1';
+            line.style.transform = 'translateX(0)';
+        }, 50);
+    }
+
+    resetPrompt() {
+        this.currentCommand = '';
+        this.commandInput.textContent = '';
+        this.cursor.classList.remove('blink');
+        setTimeout(() => this.cursor.classList.add('blink'), 50);
+    }
+}
+
+// [9] EMAILJS CONTACT FORM (META TAG METHOD - SECURE)
+function initEmailJS() {
+    const contactForm = document.getElementById('contactForm');
+    if (!contactForm || typeof emailjs === 'undefined') return;
+    
+    // Get from META tags (Secure - no hardcoding)
+    const publicKey = document.querySelector('meta[name="emailjs-public-key"]')?.content;
+    const serviceID = document.querySelector('meta[name="emailjs-service-id"]')?.content;
+    const templateID = document.querySelector('meta[name="emailjs-template-id"]')?.content;
+    
+    if (!publicKey || !serviceID || !templateID) {
+        console.warn('EmailJS: Missing config in meta tags');
+        return;
+    }
+
+    emailjs.init({ publicKey });
+
+    contactForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formMessage = document.getElementById('form-message');
+        const submitButton = this.querySelector('button[type="submit"]');
+
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        
+        emailjs.sendForm(serviceID, templateID, this)
+            .then(() => {
+                formMessage.innerHTML = '<div class="alert alert-success"><i class="fas fa-check-circle"></i> Message sent! Reply within 24hrs.</div>';
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="fas fa-paper-plane"></i> Sent!';
+                this.reset();
+                setTimeout(() => submitButton.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message', 3000);
+            }, (err) => {
+                formMessage.innerHTML = '<div class="alert alert-danger"><i class="fas fa-exclamation-triangle"></i> Failed. Email directly.</div>';
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+                console.error('EmailJS Error:', err);
+            });
+    });
+}
+// [10] FEATURED WORK - SWIPER SLIDER
+function initProjectsSwiper() {
+    if (typeof Swiper === 'undefined') return;
+
+    new Swiper(".myProjects", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        loop: true,
+
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+        },
+
+        speed: 900,
+
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+        },
+
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+        },
+
+        breakpoints: {
+            0: {
+                slidesPerView: 1
+            },
+            768: {
+                slidesPerView: 2
+            },
+            1200: {
+                slidesPerView: 3
+            }
+        }
+    });
+}

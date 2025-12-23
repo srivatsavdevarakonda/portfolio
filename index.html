@@ -1,478 +1,741 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="emailjs-public-key" content="YOUR_PUBLIC_KEY">
+    <meta name="emailjs-service-id" content="YOUR_SERVICE_ID">
+    <meta name="emailjs-template-id" content="YOUR_TEMPLATE_ID">
+
     <title>Srivatsav Devarakonda | Portfolio</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="scroll-indicator" id="scrollProgress"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <canvas id="bg-canvas"></canvas>
+
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#home">Srivatsav</a>
+            <a class="navbar-brand" href="#home">.dev<span class="text-white"></span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
                     <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
                     <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    <li class="nav-item">
-                        <button id="theme-toggle" class="btn btn-sm btn-outline-light ms-2">
-                            <i class="fas fa-moon"></i>
-                        </button>
+                    <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#certifications">Certifications</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#achievements">Achievements</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a href="#contact" class="btn btn-sm btn-resume rounded-pill px-4">Contact Me</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="hero-section d-flex align-items-center text-center">
+    <section id="home" class="hero">
+  <div class="container">
+    <div class="row align-items-center gy-5">
+
+      <!-- LEFT CONTENT -->
+      <div class="col-lg-7" data-aos="fade-right">
+        <h1 class="hero-title">SRIVATSAV DEVARAKONDA</h1>
+
+        <h3 class="mb-4">
+          <span class="typing" style="color: var(--accent-cyan);"></span>
+        </h3>
+
+        <p class="lead text-secondary mb-4">
+          Passionate Computer Science undergraduate at <strong>GVPCE(A)</strong> specializing in
+          <strong>Data Science</strong>. Bridging the gap between <strong>AI/ML</strong> and
+          <strong>Cybersecurity</strong> to architect scalable, secure systems.
+        </p>
+
+        <!-- STATS -->
+        <div class="row g-3 mb-4">
+          <div class="col-4">
+            <div class="stat-card">
+              <i class="fas fa-star text-warning"></i>
+              <small>CodeChef</small>
+              <strong>2 Star</strong>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="stat-card">
+              <i class="fas fa-code text-info"></i>
+              <small>LeetCode</small>
+              <strong>1451</strong>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="stat-card">
+              <i class="fas fa-graduation-cap text-success"></i>
+              <small>CGPA</small>
+              <strong>9.08</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="terminal-cta">
+          <i class="fas fa-hand-point-right me-2"></i>
+          <span>Explore the Interactive Terminal</span>
+        </div>
+      </div>
+
+      <!-- RIGHT TERMINAL -->
+      <div class="col-lg-5" data-aos="zoom-in">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+            <span class="ms-2 text-secondary small">identity.py</span>
+          </div>
+
+          <div class="terminal-body" id="interactiveTerminal">
+
+  <div class="terminal-line">
+    <span class="text-info">srivatsav@GVP:~$</span>
+    <span class="blink">python3 profile.py</span>
+  </div>
+
+  <div class="terminal-line text-success">
+    [✓] User: Srivatsav_D | Skills: Data Science + Cybersecurity
+  </div>
+
+  <div class="terminal-line text-success">
+    [✓] Projects Loaded: 6 (MERN, OpenCV, Docker)
+  </div>
+
+  <!-- ✅ REQUIRED PROMPT -->
+  <div class="terminal-prompt" id="terminalPrompt">
+    <span class="text-info">srivatsav@GVP:~$</span>
+    <span id="commandInput"></span>
+    <span class="blink" id="cursor">_</span>
+  </div>
+
+</div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+    <section id="about" class="section-padding">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-8" data-aos="fade-up" data-aos-duration="1000">
-                    <div class="hero-content">
-                        <h1 class="display-4 fw-bold mb-4">Hi, I'm <span class="typing accent-text"></span></h1>
-                        <p class="lead mb-5">Cybersecurity | AI & Machine Learning | Full Stack Development</p>
-                        <div class="hero-buttons">
-                            <a href="#projects" class="btn btn-primary btn-lg me-3">View My Work</a>
-                            <a href="./CV.pdf" download="Srivatsav_Devarakonda_Resume.pdf" class="btn btn-secondary btn-lg me-3">Download CV</a>
-                            <a href="#contact" class="btn btn-outline-light btn-lg">Get In Touch</a>
-                        </div>
-                        <div class="social-icons mt-5">
-                            <a href="https://github.com/srivatsavdevarakonda" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-                            <a href="https://linkedin.com/in/d-srivatsav-2a7a90247" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-                            <a href="mailto:devarakondasrivatsav@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
-                            <a href="tel:+918688319072" class="social-icon"><i class="fas fa-phone"></i></a>
-                        </div>
+                <div class="col-lg-10">
+                    <div class="cyber-card" data-aos="fade-up">
+                        <h2 class="text-center mb-4">About Me</h2>
+                        <!-- Resume Download Button -->
+        <div class="resume-download mb-5" data-aos="fade-up">
+            <a href="CV.pdf" download="Srivatsav_Devarakonda_Resume.pdf" class="resume-btn" rel="noopener noreferrer">
+                <div class="resume-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <span class="resume-text">Download Resume</span>
+                <span class="resume-badge">PDF</span>
+                <div class="resume-glow"></div>
+            </a>
+        </div>
+                        <p class="lead text-center">
+                            I am a dedicated Computer Science undergraduate specializing in Data Science, with a deep passion for solving complex, real-world problems at the intersection of Cybersecurity, Artificial Intelligence, and Full-Stack Web Development. Backed by a strong academic foundation and enriched through impactful internships and hands-on projects, I bring both technical proficiency and practical insight to my work. A collaborative team player and committed lifelong learner, I continuously strive to upskill, innovate, and make meaningful contributions to the ever-evolving tech landscape.
+                        </p>
                     </div>
                 </div>
-            </div>
-            <div class="scroll-down">
-                <a href="#about"><i class="fas fa-chevron-down"></i></a>
             </div>
         </div>
     </section>
 
-    <section id="about" class="py-5">
+    <section id="skills" class="section-padding bg-black bg-opacity-25">
         <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-lg-4 col-md-10" data-aos="fade-right">
-                    <div class="about-img text-center">
-                        <img src="./profile.jpg" alt="Profile" class="img-fluid rounded shadow" />
+            <h2 class="text-center mb-5">Technical Arsenal</h2>
+            <div class="row g-4">
+                <div class="col-md-6" data-aos="fade-right">
+                    <div class="cyber-card">
+                        <canvas id="skillsChart"></canvas>
                     </div>
                 </div>
-                <div class="col-lg-8 col-md-12" data-aos="fade-left">
-                    <div class="about-content">
-                        <div class="section-title text-center text-lg-start">
-                           <h2 class="mb-4">About Me</h2>
+                <div class="col-md-6">
+  <div class="skills-timeline">
+
+    <!-- DEVELOPMENT -->
+    <div class="timeline-group">
+      <div class="timeline-title">Development</div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="stat-card text-start">
+          <small>Programming</small>
+          <span class="text-info">Python, JavaScript (ES6+), Java, C / C++</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="stat-card text-start">
+          <small>Frontend Dev</small>
+          <span class="text-info">HTML & CSS, React.js, Bootstrap, Tailwind CSS</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="stat-card text-start">
+          <small>Backend Dev</small>
+          <span class="text-info">Node.js, Express.js, Flask, FastAPI, RESTful APIs</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="stat-card text-start">
+          <small>Databases</small>
+          <span class="text-info">SQL (MySQL), NoSQL (MongoDB)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECURITY -->
+    <div class="timeline-group">
+      <div class="timeline-title">Security</div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="stat-card text-start">
+          <small>VAPT Tools</small>
+          <span class="text-info">Nmap, Metasploit, Burp Suite</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="stat-card text-start">
+          <small>SOC Tools</small>
+          <span class="text-info">Splunk, Wazuh, Snort</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOLING -->
+    <div class="timeline-group">
+      <div class="timeline-title">Tooling & DevOps</div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="stat-card text-start">
+          <small>Version Control</small>
+          <span class="text-info">Git, GitHub, GitLab</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="stat-card text-start">
+          <small>DevOps & Tools</small>
+          <span class="text-info">Docker, CI/CD (GitHub Actions), VS Code, Jupyter</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+  </div>
+</div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="section-padding">
+        <div class="container">
+            <h2 class="text-center mb-5">Professional Journey</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <div class="experience-card" data-aos="fade-up">
+                        <div class="d-flex justify-content-between">
+                            <h5>Ethical Hacking Intern (Virtual)</h5>
+                            <span class="text-info">June 2025 – July 2025</span>
                         </div>
-                        <p class="lead">I am a dedicated Computer Science undergraduate specializing in Data Science, with a deep passion for solving complex, real-world problems at the intersection of Cybersecurity, Artificial Intelligence, and Full-Stack Web Development. Backed by a strong academic foundation and enriched through impactful internships and hands-on projects, I bring both technical proficiency and practical insight to my work. A collaborative team player and committed lifelong learner, I continuously strive to upskill, innovate, and make meaningful contributions to the ever-evolving tech landscape.</p>
+                        <p class="mb-1">InlighnTech</p>
+                        <ul class="small text-secondary">
+                            <li>Worked on ethical hacking fundamentals including reconnaissance, scanning, and basic exploitation in lab environments.</li>
+                            <li>Practiced using common security tools for vulnerability identification and reporting.</li>
+                        </ul>
+                    </div>
+                    <div class="experience-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="d-flex justify-content-between">
+                            <h5>VAPT Intern (Virtual)</h5>
+                            <span class="text-info">Mar 2025 – May 2025</span>
+                        </div>
+                        <p class="mb-1">Cyberthreya</p>
+                        <ul class="small text-secondary">
+                            <li>Performed VAPT on virtual machines using Kali Linux environments.</li>
+                            <li>Executed scanning, exploitation, and vulnerability reporting using tools like Nmap and Burp Suite.</li>
+                        </ul>
+                    </div>
+                    <div class="experience-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="d-flex justify-content-between">
+                            <h5>Cloud Security Intern (Virtual)</h5>
+                            <span class="text-info">Apr 2025 – Jun 2025</span>
+                        </div>
+                        <p class="mb-1">Zscaler</p>
+                        <ul class="small text-secondary">
+                            <li>Explored cloud security and Zero Trust Network Access (ZTNA) concepts for enterprise environments.</li>
+                            <li>Reviewed and documented strategies for securing cloud-based applications and traffic flows.</li>
+                        </ul>
+                    </div>
+                    <div class="experience-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="d-flex justify-content-between">
+                            <h5>Cyber Security Intern (Virtual)</h5>
+                            <span class="text-info">Jan 2025 – Feb 2025</span>
+                        </div>
+                        <p class="mb-1">Edunet Foundation (in collaboration with AICTE)</p>
+                        <ul class="small text-secondary">
+                            <li>Learnt core cyber security concepts including network security, threats, and basic incident response.</li>
+                            <li>Completed hands-on labs and assignments focused on practical security use cases.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="skills" class="py-5 bg-light-section">
-    <div class="container">
-        <div class="section-title text-center" data-aos="fade-up">
-            <h2>Technical Skills</h2>
-            <p class="lead">A detailed look at my technical capabilities</p>
+    <section id="projects" class="section-padding bg-black bg-opacity-25">
+  <div class="container">
+    <h2 class="text-center mb-5">Featured Work</h2>
+
+    <!-- Swiper container -->
+    <div class="swiper myProjects">
+      <!-- Wrapper for slides -->
+      <div class="swiper-wrapper">
+
+        <!-- 1. GVPXplore Portal -->
+        <div class="swiper-slide">
+          <div class="cyber-card">
+            <h6>GVPXplore Portal
+              <span class="badge bg-warning text-dark ms-2">In Progress</span>
+            </h6>
+            <p class="small text-secondary mb-3">
+              Full-stack college portal (MERN) with JWT authentication, REST APIs, responsive Bootstrap UI, and modern web technologies.
+            </p>
+            <div class="project-deploy">
+              <a href="#" target="_blank" class="deploy-btn" rel="noopener noreferrer">
+                <div class="deploy-icon">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <span class="deploy-text">View Live</span>
+                <div class="deploy-glow"></div>
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="row" data-aos="fade-up" data-aos-delay="100">
 
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-code"></i>
-                            <h3>Programming</h3>
-                        </div>
-                        <div class="skill-card-back">
-                            <h5>Core Languages</h5>
-                            <div class="skill-item"><span>Python</span><span>75%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 75%;"></div></div>
-                            <div class="skill-item"><span>JavaScript (ES6+)</span><span>80%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 80%;"></div></div>
-                            <div class="skill-item"><span>Java</span><span>70%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 70%;"></div></div>
-                             <div class="skill-item"><span>C / C++</span><span>65%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 65%;"></div></div>
-                        </div>
-                    </div>
+        <!-- 2. Snakes & Ladders Online -->
+        <div class="swiper-slide">
+          <div class="cyber-card">
+            <h6>Snakes &amp; Ladders Online</h6>
+            <p class="small text-secondary mb-3">
+              Real-time multiplayer game using JavaScript, Node.js, Express.js, and Socket.io for synchronous gameplay across multiple users.
+            </p>
+            <div class="project-deploy">
+              <a href="#" target="_blank" class="deploy-btn" rel="noopener noreferrer">
+                <div class="deploy-icon">
+                  <i class="fas fa-rocket"></i>
                 </div>
+                <span class="deploy-text">View Live</span>
+                <div class="deploy-glow"></div>
+              </a>
             </div>
+          </div>
+        </div>
 
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-desktop"></i>
-                            <h3>Frontend Dev</h3>
-                        </div>
-                        <div class="skill-card-back">
-                            <h5>Markup & Frameworks</h5>
-                            <div class="skill-item"><span>HTML & CSS</span><span>80%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 80%;"></div></div>
-                            <div class="skill-item"><span>React.js</span><span>70%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 70%;"></div></div>
-                            <div class="skill-item"><span>Bootstrap / Tailwind</span><span>75%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 75%;"></div></div>
-                        </div>
-                    </div>
+        <!-- 3. Air Gesture Calci -->
+        <div class="swiper-slide">
+          <div class="cyber-card">
+            <h6>Air Gesture Calci</h6>
+            <p class="small text-secondary mb-3">
+              Vision-based calculator leveraging Python, OpenCV, and MediaPipe hand tracking to map hand gestures to on-screen arithmetic operations.
+            </p>
+            <div class="project-deploy">
+              <a href="#" target="_blank" class="deploy-btn" rel="noopener noreferrer">
+                <div class="deploy-icon">
+                  <i class="fas fa-rocket"></i>
                 </div>
+                <span class="deploy-text">View Live</span>
+                <div class="deploy-glow"></div>
+              </a>
             </div>
+          </div>
+        </div>
 
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-server"></i>
-                            <h3>Backend Dev</h3>
-                        </div>
-                        <div class="skill-card-back">
-                            <h5>Frameworks & APIs</h5>
-                            <div class="skill-item"><span>Node.js / Express.js</span><span>65%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 65%;"></div></div>
-                            <div class="skill-item"><span>Flask / FastAPI</span><span>70%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 70%;"></div></div>
-                            <div class="skill-item"><span>RESTful APIs</span><span>75%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 75%;"></div></div>
-                        </div>
-                    </div>
+        <!-- 4. Phishing Detector -->
+        <div class="swiper-slide">
+          <div class="cyber-card">
+            <h6>Phishing Detector</h6>
+            <p class="small text-secondary mb-3">
+              Machine learning-powered phishing website detector and text scanner for real-time cybersecurity threat identification and analysis.
+            </p>
+            <div class="project-deploy">
+              <a href="#" target="_blank" class="deploy-btn" rel="noopener noreferrer">
+                <div class="deploy-icon">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <span class="deploy-text">View Live</span>
+                <div class="deploy-glow"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Steganography Tool -->
+        <div class="swiper-slide">
+          <div class="cyber-card">
+            <h6>Steganography Tool</h6>
+            <p class="small text-secondary mb-3">
+              Advanced image steganography utility using Python, OpenCV, NumPy, and Tkinter for secure data hiding/extraction via LSB techniques. MIT License.
+            </p>
+            <div class="project-deploy">
+              <a href="#" target="_blank" class="deploy-btn" rel="noopener noreferrer">
+                <div class="deploy-icon">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <span class="deploy-text">View Live</span>
+                <div class="deploy-glow"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. SecureKit -->
+        <div class="swiper-slide">
+          <div class="cyber-card">
+            <h6>SecureKit</h6>
+            <p class="small text-secondary mb-3">
+              Comprehensive cybersecurity toolkit with penetration testing utilities, vulnerability scanners, and security analysis tools built with modern HTML/CSS/JS.
+            </p>
+            <div class="project-deploy">
+              <a href="#" target="_blank" class="deploy-btn" rel="noopener noreferrer">
+                <div class="deploy-icon">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <span class="deploy-text">View Live</span>
+                <div class="deploy-glow"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Wordle Game -->
+        <div class="swiper-slide">
+          <div class="cyber-card">
+            <h6>Wordle Game</h6>
+            <p class="small text-secondary mb-3">
+              Complete Wordle clone featuring Python Tkinter GUI, dictionary validation, color-coded feedback, and stateful game logic. MIT License.
+            </p>
+            <div class="project-deploy">
+              <a href="#" target="_blank" class="deploy-btn" rel="noopener noreferrer">
+                <div class="deploy-icon">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <span class="deploy-text">View Live</span>
+                <div class="deploy-glow"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Text Summarizer -->
+        <div class="swiper-slide">
+          <div class="cyber-card">
+            <h6>Text Summarizer</h6>
+            <p class="small text-secondary mb-3">
+              AI-powered natural language processing tool for intelligent text summarization and content extraction. MIT License.
+            </p>
+            <div class="project-deploy">
+              <a href="#" target="_blank" class="deploy-btn" rel="noopener noreferrer">
+                <div class="deploy-icon">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <span class="deploy-text">View Live</span>
+                <div class="deploy-glow"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. GPA Calculator -->
+        <div class="swiper-slide">
+          <div class="cyber-card">
+            <h6>GPA Calculator</h6>
+            <p class="small text-secondary mb-3">
+              Interactive college GPA calculator with semester-wise tracking, grade conversion, and cumulative performance analytics using JavaScript.
+            </p>
+            <div class="project-deploy">
+              <a href="#" target="_blank" class="deploy-btn" rel="noopener noreferrer">
+                <div class="deploy-icon">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <span class="deploy-text">View Live</span>
+                <div class="deploy-glow"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. Portfolio (This Site) -->
+        <div class="swiper-slide">
+          <div class="cyber-card">
+            <h6>Portfolio Site</h6>
+            <p class="small text-secondary mb-3">
+              This website! Cyber-themed portfolio featuring interactive terminal, particle systems, radar charts, and modern animations.
+            </p>
+            <div class="project-deploy">
+              <a href="." target="_blank" class="deploy-btn" rel="noopener noreferrer">
+                <div class="deploy-icon">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <span class="deploy-text">Live Now</span>
+                <div class="deploy-glow"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11. Automated-Network-Request-SN-Project -->
+        <div class="swiper-slide">
+          <div class="cyber-card">
+            <h6>Automated-Network-Request-SN-Project</h6>
+            <p class="small text-secondary mb-3">
+              A compact project that automates network requests and demonstrates the solution with documentation and a demo video.
+            </p>
+            <div class="project-deploy">
+              <a href="https://drive.google.com/file/d/1fR3IKikraEoKxj4okS7DtAqbUowLO03K/view?usp=sharing"
+                 target="_blank" class="deploy-btn" rel="noopener noreferrer">
+                <div class="deploy-icon">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <span class="deploy-text">Live Now</span>
+                <div class="deploy-glow"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12. Playback Pace -->
+        <div class="swiper-slide">
+          <div class="cyber-card">
+            <h6>Playback Pace: YouTube Speed Duration Calculator</h6>
+            <p class="small text-secondary mb-3">
+              Playback Pace is a lightweight Chrome extension that shows you the real-time adjusted duration of a YouTube video when changing playback speed, including time saved and new finish time.
+            </p>
+            <div class="project-deploy">
+              <a href="https://github.com/srivatsavdevarakonda/Playback-Pace"
+                 target="_blank" class="deploy-btn" rel="noopener noreferrer">
+                <div class="deploy-icon">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <span class="deploy-text">Live Now</span>
+                <div class="deploy-glow"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 13. Hangman -->
+        <div class="swiper-slide">
+          <div class="cyber-card">
+            <h6>Hangman</h6>
+            <p class="small text-secondary mb-3">
+              Fully interactive Hangman game built with Python's Tkinter GUI toolkit, using WordNet-backed real English words and letter-by-letter guessing.
+            </p>
+            <div class="project-deploy">
+              <a href="https://github.com/srivatsavdevarakonda/Playback-Pace"
+                 target="_blank" class="deploy-btn" rel="noopener noreferrer">
+                <div class="deploy-icon">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <span class="deploy-text">Live Now</span>
+                <div class="deploy-glow"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 14. Cook with the Chef -->
+        <div class="swiper-slide">
+          <div class="cyber-card">
+            <h6>Cook with the Chef</h6>
+            <p class="small text-secondary mb-3">
+              Web-based word art generator that converts your text into a heatmap-style calendar grid using pixel-style fonts, with downloadable calendar images.
+            </p>
+            <div class="project-deploy">
+              <a href="https://cook-with-the-chef.vercel.app"
+                 target="_blank" class="deploy-btn" rel="noopener noreferrer">
+                <div class="deploy-icon">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <span class="deploy-text">Live Now</span>
+                <div class="deploy-glow"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 15. Air Gesture Calculator using MediaPipe -->
+        <div class="swiper-slide">
+          <div class="cyber-card">
+            <h6>Air Gesture Calculator using MediaPipe</h6>
+            <p class="small text-secondary mb-3">
+              Hand gesture-based calculator using a webcam and MediaPipe that maps finger counts to numbers and operations for simple arithmetic.
+            </p>
+            <div class="project-deploy">
+              <a href="https://github.com/srivatsavdevarakonda/Playback-Pace"
+                 target="_blank" class="deploy-btn" rel="noopener noreferrer">
+                <div class="deploy-icon">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <span class="deploy-text">Live Now</span>
+                <div class="deploy-glow"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Optional pagination & arrows -->
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>
+</section>
+
+
+
+    <section id="education" class="section-padding">
+  <div class="container">
+    <h2 class="mb-5">Education</h2>
+
+    <div class="row g-4">
+
+      <!-- COLLEGE -->
+      <div class="col-lg-6">
+        <div class="cyber-card education-card">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="mb-0">GVP College of Engineering (A)</h5>
+            <span class="edu-badge">Current</span>
+          </div>
+
+          <p class="text-secondary mb-1">B.Tech · Computer Science (Data Science)</p>
+          <p class="small text-secondary mb-0">CGPA: 9.08 / 10 (2022 – 2026)</p>
+        </div>
+      </div>
+
+      <!-- INTERMEDIATE -->
+      <div class="col-lg-6">
+        <div class="cyber-card education-card">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="mb-0">Sri Sarada Vidya Nikentan</h5>
+          </div>
+
+          <p class="text-secondary mb-1">Intermediate · MPC Stream</p>
+          <p class="small text-secondary mb-0">Percentage: 95% (2020 – 2022)</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+    <section id="certifications" class="section-padding bg-black bg-opacity-25">
+        <div class="container">
+            <h2 class="text-center mb-5">Certifications</h2>
+            <div class="row g-3">
+                <div class="col-md-3"><div class="trust-badge"><h6>ServiceNow CSA</h6></div></div>
+                <div class="col-md-3"><div class="trust-badge"><h6>ServiceNow CAD</h6></div></div>
+                <div class="col-md-3"><div class="trust-badge"><h6>NPTEL Ethical Hacking</h6></div></div>
+                <div class="col-md-3"><div class="trust-badge"><h6>NPTEL IoT</h6></div></div>
+                <div class="col-md-3"><div class="trust-badge"><h6>Cyberthreya VAPT</h6></div></div>
+                <div class="col-md-3"><div class="trust-badge"><h6>Cyberthreya SOC Analyst</h6></div></div>
+                <div class="col-md-3"><div class="trust-badge"><h6>Cyberthreya Ethical Hacking</h6></div></div>
+                <div class="col-md-3"><div class="trust-badge"><h6>Zscaler Cybersecurity</h6></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements" class="section-padding">
+    <div class="container text-center">
+        <h2 class="mb-5">Key Achievements</h2>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <h5>🎓 Top 15 Rank</h5>
+                    <p class="small m-0">B.Tech CGPA 9.08/10 (GVP College of Engineering)</p>
                 </div>
             </div>
             
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-database"></i>
-                            <h3>Databases</h3>
-                        </div>
-                        <div class="skill-card-back">
-                            <h5>Query & Management</h5>
-                            <div class="skill-item"><span>SQL (MySQL)</span><span>75%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 75%;"></div></div>
-                            <div class="skill-item"><span>NoSQL (MongoDB)</span><span>70%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 70%;"></div></div>
-                        </div>
-                    </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <h5>🏆 SIH 2024 Qualifier</h5>
+                    <p class="small m-0">Smart India Hackathon (Indoor Navigation System)</p>
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-user-secret"></i>
-                            <h3>VAPT Tools</h3>
-                        </div>
-                        <div class="skill-card-back">
-                            <h5>Penetration Testing</h5>
-                            <div class="skill-item"><span>Nmap</span><span>85%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 85%;"></div></div>
-                            <div class="skill-item"><span>Metasploit</span><span>75%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 75%;"></div></div>
-                             <div class="skill-item"><span>Burp Suite</span><span>80%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 80%;"></div></div>
-                        </div>
-                    </div>
+            
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <h5>🥈 Basketball runner-up</h5>
+                    <p class="small m-0">Inter-branch college basketball league</p>
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-shield-alt"></i>
-                            <h3>SOC Tools</h3>
-                        </div>
-                        <div class="skill-card-back">
-                            <h5>Security Operations</h5>
-                            <div class="skill-item"><span>Splunk</span><span>85%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 85%;"></div></div>
-                            <div class="skill-item"><span>Wazuh</span><span>80%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 80%;"></div></div>
-                            <div class="skill-item"><span>Snort</span><span>80%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 80%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-code-branch"></i>
-                            <h3>Version Control</h3>
-                        </div>
-                        <div class="skill-card-back">
-                            <h5>Source Code Mgmt</h5>
-                            <div class="skill-item"><span>Git</span><span>85%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 85%;"></div></div>
-                            <div class="skill-item"><span>GitHub / GitLab</span><span>80%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 80%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="skill-card">
-                    <div class="skill-card-inner">
-                        <div class="skill-card-front">
-                            <i class="fas fa-cogs"></i>
-                            <h3>DevOps & Tools</h3>
-                        </div>
-                        <div class="skill-card-back">
-                            <h5>CI/CD & Containers</h5>
-                            <div class="skill-item"><span>Docker</span><span>60%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 60%;"></div></div>
-                            <div class="skill-item"><span>CI/CD (GitHub Actions)</span><span>65%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 65%;"></div></div>
-                            <div class="skill-item"><span>VS Code / Jupyter</span><span>85%</span></div>
-                            <div class="progress"><div class="progress-bar" style="width: 85%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 </section>
 
-    <section id="experience" class="py-5">
-        <div class="container">
-            <div class="section-title text-center" data-aos="fade-up">
-                <h2>Professional Experience</h2>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div class="card p-4 mb-3 shadow-sm" data-aos="fade-up">
-                        <h5 class="fw-bold">Ethical Hacking Intern (Virtual)</h5>
-                        <p class="mb-1">InlighnTech</p>
-                        <p class="mb-1 text-muted">June 2025 – July 2025</p>
-                    </div>
-                    <div class="card p-4 mb-3 shadow-sm" data-aos="fade-up" data-aos-delay="100">
-                        <h5 class="fw-bold">VAPT Intern (Virtual)</h5>
-                        <p class="mb-1">Cyberthreya</p>
-                        <p class="mb-1 text-muted">Mar 2025 – May 2025</p>
-                    </div>
-                    <div class="card p-4 mb-3 shadow-sm" data-aos="fade-up" data-aos-delay="200">
-                        <h5 class="fw-bold">Cloud Security Intern (Virtual)</h5>
-                        <p class="mb-1">Zscaler</p>
-                        <p class="mb-1 text-muted">Apr 2025 – Jun 2025</p>
-                    </div>
-                    <div class="card p-4 mb-3 shadow-sm" data-aos="fade-up" data-aos-delay="300">
-                        <h5 class="fw-bold">Cyber Security Intern (Virtual)</h5>
-                        <p class="mb-1">Edunet Foundation (in collaboration with AICTE)</p>
-                        <p class="mb-1 text-muted">Jan 2025 – Feb 2025</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="projects" class="py-5 bg-light-section">
+    <footer id="contact" class="security-footer text-center">
+        <div class="shield-icon"><i class="fas fa-shield-alt"></i></div>
         <div class="container">
-            <div class="section-title text-center" data-aos="fade-up">
-                <h2>Projects</h2>
-                <p class="lead">A selection of my recent work.</p>
+            <h2 class="mb-4">Get In Touch</h2>
+            <div class="mb-4">
+                <a href="https://github.com/srivatsavdevarakonda" target="_blank" class="text-white mx-3 fs-3"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/d-srivatsav-2a7a90247" target="_blank" class="text-white mx-3 fs-3"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:devarakondasrivatsav@gmail.com" class="text-white mx-3 fs-3"><i class="fas fa-envelope"></i></a>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="card project-card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">GVPXplore MERN Portal</h5>
-                            <p class="card-text">HTML5, CSS3, MongoDB, Express.js, React.js, Node.js, REST APIs, JWT, Bootstrap</p>
-                            <div class="mt-auto">
-                                <a href="https://github.com/srivatsavdevarakonda/" class="project-link" target="_blank" rel="noopener noreferrer">View on GitHub <i class="fas fa-arrow-right"></i></a>
-                                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">View Deployment <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card project-card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Phishing Email Detection (in progress)</h5>
-                            <p class="card-text">Splunk, SIEM, Regular Expressions, Email Log Analysis, Security Rules</p>
-                            <div class="mt-auto">
-                                <a href="https://github.com/srivatsavdevarakonda/" class="project-link" target="_blank" rel="noopener noreferrer">View on GitHub <i class="fas fa-arrow-right"></i></a>
-                                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">View Deployment <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card project-card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Steganography Image Tool</h5>
-                            <p class="card-text">Python, OpenCV, NumPy, PIL, LSB Steganography, Tkinter GUI</p>
-                            <div class="mt-auto">
-                                <a href="https://github.com/srivatsavdevarakonda/stego-project" class="project-link" target="_blank" rel="noopener noreferrer">View on GitHub <i class="fas fa-arrow-right"></i></a>
-                                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">View Deployment <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="card project-card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Wordle Game</h5>
-                            <p class="card-text">Python, Tkinter, Random Module, GUI Logic, State Management</p>
-                            <div class="mt-auto">
-                                <a href="https://github.com/srivatsavdevarakonda/wordle_game" class="project-link" target="_blank" rel="noopener noreferrer">View on GitHub <i class="fas fa-arrow-right"></i></a>
-                                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">View Deployment <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                    <div class="card project-card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Air Gesture Calci</h5>
-                            <p class="card-text">Python, OpenCV, MediaPipe, Hand Tracking, Gesture Recognition</p>
-                            <div class="mt-auto">
-                                <a href="https://github.com/srivatsavdevarakonda/air-gesture-calci" class="project-link" target="_blank" rel="noopener noreferrer">View on GitHub <i class="fas fa-arrow-right"></i></a>
-                                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">View Deployment <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="500">
-                    <div class="card project-card h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Snakes & Ladders Online</h5>
-                            <p class="card-text">HTML, CSS, JavaScript, Node.js, Socket.io, Express.js, Game Logic</p>
-                            <div class="mt-auto">
-                                <a href="https://github.com/srivatsavdevarakonda/snakes-and-ladders-online" class="project-link" target="_blank" rel="noopener noreferrer">View on GitHub <i class="fas fa-arrow-right"></i></a>
-                                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">View Deployment <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="education" class="py-5">
-        <div class="container">
-            <div class="section-title text-center" data-aos="fade-up">
-                <h2>Education & Achievements</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-6" data-aos="fade-up">
-                    <h4 class="mb-4 text-center">Education</h4>
-                    <div class="card p-4 mb-3 shadow-sm">
-                        <h5 class="fw-bold">GVP College of Engineering (A)</h5>
-                        <p class="mb-1">B.Tech in Computer Science & Engineering (Data Science)</p>
-                        <p class="mb-1 text-muted">Nov 2022 – Jun 2026 | CGPA: 9.08/10</p>
-                    </div>
-                    <div class="card p-4 shadow-sm">
-                        <h5 class="fw-bold">Sri Sarada Vidya Nikentan</h5>
-                        <p class="mb-1">Intermediate (MPC)</p>
-                        <p class="mb-1 text-muted">Apr 2020 – Jun 2022 | Percentage: 95%</p>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                    <h4 class="mb-4 text-center">Achievements</h4>
-                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Ranked among the <strong>top 15</strong> in B.Tech and secured a <strong>top 5</strong> rank in Intermediate studies.</li>
-                        <li class="list-group-item">Earned the <strong>CodeChef Diamond Badge</strong> with a consistent coding streak of over <strong>140 days</strong>.</li>
-                        <li class="list-group-item">Currently a <strong>2 star coder</strong> in Codechef.</li>
-                        <li class="list-group-item">Maintained a consistent SGPA of <strong>8.6+</strong> across all semesters.</li>
-                        <li class="list-group-item">SIH Internal Round Qualifier for an Indoor Navigation System project (2024).</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="certifications" class="py-5 bg-light-section">
-        <div class="container">
-            <div class="section-title text-center" data-aos="fade-up">
-                <h2>Certifications</h2>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item" data-aos="fade-up"><i class="fas fa-award me-2 accent-text"></i><strong>ServiceNow Certified System Administrator (CSA)</strong></li>
-                        <li class="list-group-item" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-award me-2 accent-text"></i><strong>ServiceNow Certified Application Developer (CAD)</strong></li>
-                        <li class="list-group-item" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-award me-2 accent-text"></i><strong>NPTEL Certified:</strong> Ethical Hacking, Internet of Things (IoT)</li>
-                        <li class="list-group-item" data-aos="fade-up" data-aos-delay="300"><i class="fas fa-award me-2 accent-text"></i><strong>Cyberthreya Certified:</strong> Ethical Hacking, SOC Analyst, VAPT</li>
-                        <li class="list-group-item" data-aos="fade-up" data-aos-delay="400"><i class="fas fa-award me-2 accent-text"></i><strong>Zscaler Certified:</strong> Cybersecurity Fundamentals</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact-section py-5">
-        <div class="container">
-            <div class="section-title text-center mb-5" data-aos="fade-up">
-                <h2>Get In Touch</h2>
-                <p class="lead">I'm currently seeking new opportunities. Feel free to reach out!</p>
-            </div>
-            <div class="row">
-                <div class="col-md-6" data-aos="fade-right">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+91 8688319072</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>devarakondasrivatsav@gmail.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-linkedin"></i>
-                            <span><a href="https://linkedin.com/in/d-srivatsav-2a7a90247" target="_blank" rel="noopener noreferrer">linkedin.com/in/d-srivatsav</a></span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-github"></i>
-                            <span><a href="https://github.com/srivatsavdevarakonda" target="_blank" rel="noopener noreferrer">github.com/srivatsavdevarakonda</a></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6" data-aos="fade-left">
-                    <form id="contactForm" class="contact-form">
-                        <div id="form-message" class="mb-3"></div>
-                        <div class="mb-3">
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required />
-                        </div>
-                        <div class="mb-3">
-                            <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required />
-                        </div>
-                        <div class="mb-3">
-                            <textarea id="message" name="message" class="form-control" rows="4" placeholder="Your Message" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-4 text-center">
-        <div class="container">
-            <p>&copy; 2025 Srivatsav Devarakonda. All rights reserved.</p>
+            <p class="small text-secondary m-0">&copy; 2025 Srivatsav Devarakonda | Secure. Innovate. Deploy.</p>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 </body>
 </html>
