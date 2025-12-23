@@ -217,7 +217,7 @@ function initParticles() {
     animate();
 }
 
-// [8] INTERACTIVE TERMINAL (Your existing code - CORRECTED)
+// [8] INTERACTIVE TERMINAL — FINAL, MOBILE + DESKTOP SAFE
 class InteractiveTerminal {
     constructor() {
         this.prompt = document.getElementById('terminalPrompt');
@@ -225,11 +225,11 @@ class InteractiveTerminal {
         this.commandInput = document.getElementById('commandInput');
         this.terminal = document.getElementById('interactiveTerminal');
         this.mobileInput = document.getElementById('mobileTerminalInput');
-        if (!this.prompt || !this.cursor || !this.commandInput || !this.terminal) return;
-        
+
+        if (!this.prompt || !this.cursor || !this.commandInput || !this.terminal || !this.mobileInput) return;
+
         this.currentCommand = '';
-        this.isTyping = false;
-        
+
         this.fileSystem = {
             'about.txt': 'Computer Science student | Data Science + Cybersecurity | GVPCE(A)',
             'contact.info': 'devarakondasrivatsav@gmail.com | LinkedIn: linkedin.com/in/srivatsav-d',
@@ -237,113 +237,96 @@ class InteractiveTerminal {
         };
 
         this.commands = {
-            'about':{ section: '#about', response: '→ About Me section opened! 👨‍💻' },
-            'skills': { section: '#skills', response: '→ Technical Arsenal loaded! 🚀' },
-            'experience': { section: '#experience', response: '→ Professional Journey accessed! 💼' },
-            'projects': { section: '#projects', response: '→ Featured Work deployed! 🌟' },
-            'education': { section: '#education', response: '→ Education verified! 🎓' },
-            'certifications': { section: '#certifications', response: '→ Certifications unlocked! 🏆' },
-            'achievements': { section: '#achievements', response: '→ Achievements displayed! ⭐' },
-            'help': { response: '<strong>📋 NAV:</strong> Try entering any section name:\n about, skills, projects, experience, education, certifications, achievements<br><strong>⚙️ UTIL:</strong> cls exit ls cat help' }
+            about: { section: '#about', response: '→ About Me section opened! 👨‍💻' },
+            skills: { section: '#skills', response: '→ Technical Arsenal loaded! 🚀' },
+            experience: { section: '#experience', response: '→ Professional Journey accessed! 💼' },
+            projects: { section: '#projects', response: '→ Featured Work deployed! 🌟' },
+            education: { section: '#education', response: '→ Education verified! 🎓' },
+            certifications: { section: '#certifications', response: '→ Certifications unlocked! 🏆' },
+            achievements: { section: '#achievements', response: '→ Achievements displayed! ⭐' },
+            help: {
+                response:
+                    '<strong>📋 NAV:</strong> about skills projects experience education certifications achievements<br>' +
+                    '<strong>⚙️ UTIL:</strong> cls exit ls help'
+            }
         };
-        
+
         this.showWelcomeGuide();
         this.init();
     }
-    
+
     showWelcomeGuide() {
         setTimeout(() => {
             this.addOutputLine('<span class="text-success">[BOOT]</span> Srivatsav_D Terminal v2.0');
-            this.addOutputLine('<span class="text-cyan">💡 TIP:</span> Type sections to navigate | cls/ls/exit');
-        }, 500);
+            this.addOutputLine('<span class="text-cyan">💡 TIP:</span> Tap terminal & type commands');
+        }, 400);
     }
-    
+
     init() {
+        /* Focus input when terminal is tapped (mobile + desktop) */
+        this.terminal.addEventListener('click', () => {
+            this.mobileInput.focus();
+        });
 
-    /* 🔹 MOBILE: focus hidden input on tap */
-    this.terminal.addEventListener('click', () => {
-        this.mobileInput?.focus();
-    });
-
-    /* 🔹 MOBILE: capture typing */
-    this.mobileInput?.addEventListener('input', (e) => {
-        this.currentCommand = e.target.value.toLowerCase();
-        this.updateInput();
-    });
-
-    this.mobileInput?.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            this.executeCommand();
-            this.mobileInput.value = '';
-        }
-        if (e.key === 'Backspace') {
-            this.currentCommand = this.currentCommand.slice(0, -1);
+        /* ONE input handler — works everywhere */
+        this.mobileInput.addEventListener('input', (e) => {
+            this.currentCommand = e.target.value.toLowerCase();
             this.updateInput();
-        }
-    });
+        });
 
-    /* 🔹 DESKTOP: normal keyboard */
-    document.addEventListener('keydown', (e) => {
-        if (this.isTyping) return;
+        /* Handle Enter */
+        this.mobileInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.executeCommand();
+            }
+        });
+    }
 
-        if (e.key === 'Enter') {
-            this.executeCommand();
-        } else if (e.key === 'Backspace') {
-            this.currentCommand = this.currentCommand.slice(0, -1);
-            this.updateInput();
-        } else if (e.key.length === 1 && e.key.match(/[a-z0-9._-]/i)) {
-            this.currentCommand += e.key.toLowerCase();
-            this.updateInput();
-        }
-    });
-}
-
-
-    updateInput() { this.commandInput.textContent = this.currentCommand; }
+    updateInput() {
+        this.commandInput.textContent = this.currentCommand;
+    }
 
     executeCommand() {
-        const fullInput = this.currentCommand.trim();
-        const [cmd, ...args] = fullInput.split(' ');
-        this.isTyping = false;
-        
-        if (!cmd) return this.resetPrompt();
+        const input = this.currentCommand.trim();
+        if (!input) return this.resetPrompt();
 
-        this.addOutputLine(`<span class="text-info">srivatsav@GVP:~$</span> <span class="text-white">${fullInput}</span>`);
+        const cmd = input.split(' ')[0];
 
-        switch (cmd) {
-            case 'cls':
-                this.terminal.querySelectorAll('.terminal-line').forEach(line => line.remove());
-                this.showWelcomeGuide();
-                return this.resetPrompt();
-                
-            case 'exit':
-                this.addOutputLine('<span class="text-magenta">[EXIT] Goodbye! 👋</span>');
-                setTimeout(() => {
-                    this.terminal.parentElement.style.opacity = '0';
-                    setTimeout(() => this.terminal.parentElement.style.display = 'none', 300);
-                }, 1000);
-                return;
-                
-            case 'ls':
-                this.addOutputLine(`<span class="text-cyan">📁 ${Object.keys(this.fileSystem).join('  ')}</span>`);
-                break;
-                
-            default:
-                if (this.commands[cmd]) {
-                    this.addOutputLine(`<span class="text-success">[✓] ${this.commands[cmd].response}</span>`);
-                    if (this.commands[cmd].section) {
-                        setTimeout(() => {
-                            document.querySelector(this.commands[cmd].section)?.scrollIntoView({ 
-                                behavior: 'smooth', block: 'start' 
-                            });
-                        }, 800);
-                    }
-                } else {
-                    this.addOutputLine('<span class="text-danger">[❌] Unknown: <span class="text-white">help</span></span>');
-                }
-                break;
+        this.addOutputLine(
+            `<span class="text-info">srivatsav@GVP:~$</span> <span class="text-white">${input}</span>`
+        );
+
+        if (cmd === 'cls') {
+            this.terminal.querySelectorAll('.terminal-line').forEach(l => l.remove());
+            this.showWelcomeGuide();
+            return this.resetPrompt();
         }
+
+        if (cmd === 'exit') {
+            this.addOutputLine('<span class="text-magenta">[EXIT]</span> Session closed 👋');
+            return;
+        }
+
+        if (cmd === 'ls') {
+            this.addOutputLine(
+                `<span class="text-cyan">📁 ${Object.keys(this.fileSystem).join('  ')}</span>`
+            );
+            return this.resetPrompt();
+        }
+
+        if (this.commands[cmd]) {
+            this.addOutputLine(`<span class="text-success">[✓] ${this.commands[cmd].response}</span>`);
+            if (this.commands[cmd].section) {
+                setTimeout(() => {
+                    document.querySelector(this.commands[cmd].section)
+                        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 700);
+            }
+        } else {
+            this.addOutputLine('<span class="text-danger">[❌] Unknown command. Try <span class="text-white">help</span></span>');
+        }
+
         this.resetPrompt();
     }
 
@@ -353,22 +336,17 @@ class InteractiveTerminal {
         line.innerHTML = html;
         this.terminal.insertBefore(line, this.prompt);
         this.terminal.scrollTop = this.terminal.scrollHeight;
-        line.style.opacity = '0';
-        line.style.transform = 'translateX(20px)';
-        setTimeout(() => {
-            line.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-            line.style.opacity = '1';
-            line.style.transform = 'translateX(0)';
-        }, 50);
     }
 
     resetPrompt() {
         this.currentCommand = '';
         this.commandInput.textContent = '';
+        this.mobileInput.value = '';
         this.cursor.classList.remove('blink');
         setTimeout(() => this.cursor.classList.add('blink'), 50);
     }
 }
+
 
 // [9] EMAILJS CONTACT FORM (META TAG METHOD - SECURE)
 function initEmailJS() {
