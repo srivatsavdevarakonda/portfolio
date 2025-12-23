@@ -217,7 +217,7 @@ function initParticles() {
     animate();
 }
 
-// [8] INTERACTIVE TERMINAL - THE REFACTORED MOBILE FIX
+// [8] INTERACTIVE TERMINAL - THE MOBILE STATE-SYNC FIX
 class InteractiveTerminal {
     constructor() {
         this.prompt = document.getElementById('terminalPrompt');
@@ -228,13 +228,11 @@ class InteractiveTerminal {
 
         if (!this.prompt || !this.mobileInput) return;
 
-        // Force mobile settings to prevent predictive interference
+        // Force-disable all mobile "smart" features that cause character flipping
         this.mobileInput.setAttribute('autocomplete', 'off');
         this.mobileInput.setAttribute('autocorrect', 'off');
         this.mobileInput.setAttribute('autocapitalize', 'none');
         this.mobileInput.setAttribute('spellcheck', 'false');
-        
-        // Using 'text' or 'search' ensures the mobile keyboard displays an "Enter" or "Search" action
         this.mobileInput.setAttribute('inputmode', 'text'); 
 
         this.fileSystem = {
@@ -260,7 +258,7 @@ class InteractiveTerminal {
 
     showWelcomeGuide() {
         setTimeout(() => {
-            this.addOutputLine('<span class="text-success">[BOOT]</span> Srivatsav_D Terminal v2.1');
+            this.addOutputLine('<span class="text-success">[BOOT]</span> Srivatsav_D Terminal v2.2');
             this.addOutputLine('<span class="text-cyan">💡 TIP:</span> Tap here and type commands');
         }, 400);
     }
@@ -272,14 +270,14 @@ class InteractiveTerminal {
             this.mobileInput.focus();
         });
 
-        // The 'input' event correctly handles backspacing and typing on all mobile devices
-        this.mobileInput.addEventListener('input', () => {
-            // Mirroring the raw value fixes the character order/reversal issues
+        // Use 'beforeinput' and 'input' to catch changes before the mobile browser flips them
+        this.mobileInput.addEventListener('input', (e) => {
+            // This ensures the display exactly matches the internal buffer
             this.commandInput.textContent = this.mobileInput.value;
         });
 
+        // Capture the "Enter" action specifically for mobile "Go/Search/Return" keys
         this.mobileInput.addEventListener('keydown', (e) => {
-            // Supports both modern and legacy mobile keyboard "Enter" triggers
             if (e.key === 'Enter' || e.keyCode === 13) {
                 e.preventDefault();
                 this.executeCommand();
@@ -288,10 +286,11 @@ class InteractiveTerminal {
     }
 
     executeCommand() {
-        const fullInput = this.mobileInput.value;
-        const cmd = fullInput.trim().toLowerCase();
+        const rawValue = this.mobileInput.value;
+        const cmd = rawValue.trim().toLowerCase();
 
-        this.addOutputLine(`<span class="text-info">srivatsav@GVP:~$</span> <span class="text-white">${fullInput}</span>`);
+        // Output exactly what was typed
+        this.addOutputLine(`<span class="text-info">srivatsav@GVP:~$</span> <span class="text-white">${rawValue}</span>`);
 
         if (cmd === 'cls' || cmd === 'clear') {
             this.terminal.querySelectorAll('.terminal-line').forEach(l => l.remove());
@@ -302,14 +301,15 @@ class InteractiveTerminal {
             this.addOutputLine(`<span class="text-success">[✓] ${this.commands[cmd].response}</span>`);
             if (this.commands[cmd].section) {
                 setTimeout(() => {
-                    const target = document.querySelector(this.commands[cmd].section);
-                    if(target) target.scrollIntoView({ behavior: 'smooth' });
-                }, 500);
+                    const el = document.querySelector(this.commands[cmd].section);
+                    if(el) el.scrollIntoView({ behavior: 'smooth' });
+                }, 400);
             }
         } else if (cmd !== '') {
             this.addOutputLine(`<span class="text-danger">[❌] Command '${cmd}' not found. Try <span class="text-white">help</span></span>`);
         }
 
+        // Complete reset for the next command
         this.mobileInput.value = '';
         this.commandInput.textContent = '';
         this.terminal.scrollTop = this.terminal.scrollHeight;
