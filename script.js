@@ -217,7 +217,7 @@ function initParticles() {
     animate();
 }
 
-// [8] INTERACTIVE TERMINAL — FINAL, MOBILE + DESKTOP SAFE
+// [8] INTERACTIVE TERMINAL — UPDATED FOR MOBILE FIX
 class InteractiveTerminal {
     constructor() {
         this.prompt = document.getElementById('terminalPrompt');
@@ -227,8 +227,6 @@ class InteractiveTerminal {
         this.mobileInput = document.getElementById('mobileTerminalInput');
 
         if (!this.prompt || !this.cursor || !this.commandInput || !this.terminal || !this.mobileInput) return;
-
-        this.currentCommand = '';
 
         this.fileSystem = {
             'about.txt': 'Computer Science student | Data Science + Cybersecurity | GVPCE(A)',
@@ -263,18 +261,17 @@ class InteractiveTerminal {
     }
 
     init() {
-        /* Focus input when terminal is tapped (mobile + desktop) */
+        // Focus hidden input on terminal click
         this.terminal.addEventListener('click', () => {
             this.mobileInput.focus();
         });
 
-        /* ONE input handler — works everywhere */
+        // Use 'input' event to sync text exactly as typed (Fixes Reverse Text)
         this.mobileInput.addEventListener('input', (e) => {
-            this.currentCommand = e.target.value.toLowerCase();
-            this.updateInput();
+            this.commandInput.textContent = e.target.value;
         });
 
-        /* Handle Enter */
+        // Handle Enter key for both Desktop and Mobile
         this.mobileInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
@@ -283,15 +280,11 @@ class InteractiveTerminal {
         });
     }
 
-    updateInput() {
-        this.commandInput.textContent = this.currentCommand;
-    }
-
     executeCommand() {
-        const input = this.currentCommand.trim();
+        const input = this.mobileInput.value.trim();
         if (!input) return this.resetPrompt();
 
-        const cmd = input.split(' ')[0];
+        const cmd = input.toLowerCase().split(' ')[0];
 
         this.addOutputLine(
             `<span class="text-info">srivatsav@GVP:~$</span> <span class="text-white">${input}</span>`
@@ -339,9 +332,8 @@ class InteractiveTerminal {
     }
 
     resetPrompt() {
-        this.currentCommand = '';
-        this.commandInput.textContent = '';
         this.mobileInput.value = '';
+        this.commandInput.textContent = '';
         this.cursor.classList.remove('blink');
         setTimeout(() => this.cursor.classList.add('blink'), 50);
     }
