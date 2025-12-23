@@ -228,12 +228,14 @@ class InteractiveTerminal {
 
         if (!this.prompt || !this.mobileInput) return;
 
-        // Force mobile settings to prevent "reverse typing" and predictive interference
+        // Force mobile settings to prevent predictive interference
         this.mobileInput.setAttribute('autocomplete', 'off');
         this.mobileInput.setAttribute('autocorrect', 'off');
         this.mobileInput.setAttribute('autocapitalize', 'none');
         this.mobileInput.setAttribute('spellcheck', 'false');
-        this.mobileInput.setAttribute('inputmode', 'search'); 
+        
+        // Using 'text' or 'search' ensures the mobile keyboard displays an "Enter" or "Search" action
+        this.mobileInput.setAttribute('inputmode', 'text'); 
 
         this.fileSystem = {
             'about.txt': 'Computer Science student | Data Science + Cybersecurity',
@@ -270,13 +272,15 @@ class InteractiveTerminal {
             this.mobileInput.focus();
         });
 
+        // The 'input' event correctly handles backspacing and typing on all mobile devices
         this.mobileInput.addEventListener('input', () => {
-            // Mirroring the raw value to fix the "flipped character" issue
+            // Mirroring the raw value fixes the character order/reversal issues
             this.commandInput.textContent = this.mobileInput.value;
         });
 
         this.mobileInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
+            // Supports both modern and legacy mobile keyboard "Enter" triggers
+            if (e.key === 'Enter' || e.keyCode === 13) {
                 e.preventDefault();
                 this.executeCommand();
             }
@@ -298,7 +302,8 @@ class InteractiveTerminal {
             this.addOutputLine(`<span class="text-success">[✓] ${this.commands[cmd].response}</span>`);
             if (this.commands[cmd].section) {
                 setTimeout(() => {
-                    document.querySelector(this.commands[cmd].section)?.scrollIntoView({ behavior: 'smooth' });
+                    const target = document.querySelector(this.commands[cmd].section);
+                    if(target) target.scrollIntoView({ behavior: 'smooth' });
                 }, 500);
             }
         } else if (cmd !== '') {
@@ -317,7 +322,6 @@ class InteractiveTerminal {
         this.terminal.insertBefore(line, this.prompt);
     }
 }
-
 
 // [9] EMAILJS CONTACT FORM (META TAG METHOD - SECURE)
 function initEmailJS() {
