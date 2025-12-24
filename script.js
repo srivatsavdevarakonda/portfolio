@@ -217,23 +217,14 @@ function initParticles() {
     animate();
 }
 
+// [8] INTERACTIVE TERMINAL - THE HARD-SYNC FIX
 class InteractiveTerminal {
     constructor() {
         this.prompt = document.getElementById('terminalPrompt');
-        this.cursor = document.getElementById('cursor');
-        this.commandInput = document.getElementById('commandInput');
         this.terminal = document.getElementById('interactiveTerminal');
-        this.mobileInput = document.getElementById('mobileTerminalInput');
+        this.input = document.getElementById('terminalInput');
 
-        if (!this.prompt || !this.mobileInput || !this.commandInput) return;
-
-        // Keep mobile smart features off, but DO NOT set weird inputmodes
-        this.mobileInput.setAttribute('autocomplete', 'off');
-        this.mobileInput.setAttribute('autocorrect', 'off');
-        this.mobileInput.setAttribute('autocapitalize', 'none');
-        this.mobileInput.setAttribute('spellcheck', 'false');
-        // IMPORTANT: remove the old line:
-        // this.mobileInput.setAttribute('inputmode', 'email');
+        if (!this.prompt || !this.terminal || !this.input) return;
 
         this.fileSystem = {
             'about.txt': 'Computer Science student | Data Science + Cybersecurity',
@@ -255,7 +246,6 @@ class InteractiveTerminal {
             }
         };
 
-        this.isComposing = false;
         this.showWelcomeGuide();
         this.init();
     }
@@ -272,49 +262,16 @@ class InteractiveTerminal {
     }
 
     init() {
-        this.mobileInput.value = '';
-        this.commandInput.textContent = '';
+        this.input.value = '';
 
-        // Focus hidden input when terminal is tapped
+        // Focus when clicking inside the terminal
         this.terminal.addEventListener('click', () => {
-            this.mobileInput.focus();
-        });
-
-        const syncDisplay = () => {
-            // Always mirror what is REALLY in the input
-            this.commandInput.textContent = this.mobileInput.value;
-        };
-
-        // Handle normal typing
-        this.mobileInput.addEventListener('input', () => {
-            if (!this.isComposing) syncDisplay();
-        });
-
-        // Handle IME composition (Android predictive text etc.)
-        this.mobileInput.addEventListener('compositionstart', () => {
-            this.isComposing = true;
-        });
-
-        this.mobileInput.addEventListener('compositionupdate', () => {
-            // optional: show live composition
-            this.commandInput.textContent = this.mobileInput.value;
-        });
-
-        this.mobileInput.addEventListener('compositionend', () => {
-            this.isComposing = false;
-            syncDisplay();
-        });
-
-        // Extra catch for some keyboards that do not fire 'input' on backspace
-        this.mobileInput.addEventListener('keyup', (e) => {
-            if (e.key === 'Backspace' || e.keyCode === 8) {
-                syncDisplay();
-            }
+            this.input.focus();
         });
 
         // Enter to execute
-        this.mobileInput.addEventListener('keydown', (e) => {
-            if ((e.key === 'Enter' || e.keyCode === 13) && !this.isComposing) {
+        this.input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.keyCode === 13) {
                 e.preventDefault();
                 this.executeCommand();
             }
@@ -322,7 +279,7 @@ class InteractiveTerminal {
     }
 
     executeCommand() {
-        const fullValue = this.mobileInput.value;
+        const fullValue = this.input.value;
         const cmd = fullValue.trim().toLowerCase();
 
         this.addOutputLine(
@@ -356,9 +313,7 @@ class InteractiveTerminal {
             );
         }
 
-        // Reset prompt for next command
-        this.mobileInput.value = '';
-        this.commandInput.textContent = '';
+        this.input.value = '';
         this.terminal.scrollTop = this.terminal.scrollHeight;
     }
 
