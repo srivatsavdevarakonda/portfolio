@@ -217,7 +217,6 @@ function initParticles() {
     animate();
 }
 
-// [8] INTERACTIVE TERMINAL - THE HARD-SYNC FIX
 class InteractiveTerminal {
     constructor() {
         this.prompt = document.getElementById('terminalPrompt');
@@ -226,16 +225,15 @@ class InteractiveTerminal {
         this.terminal = document.getElementById('interactiveTerminal');
         this.mobileInput = document.getElementById('mobileTerminalInput');
 
-        if (!this.prompt || !this.mobileInput) return;
+        if (!this.prompt || !this.mobileInput || !this.commandInput) return;
 
-        // Force-disable mobile "smart" features that cause character flipping
+        // Keep mobile smart features off, but DO NOT set weird inputmodes
         this.mobileInput.setAttribute('autocomplete', 'off');
         this.mobileInput.setAttribute('autocorrect', 'off');
         this.mobileInput.setAttribute('autocapitalize', 'none');
         this.mobileInput.setAttribute('spellcheck', 'false');
-        
-        // Using "password" type (temporarily) or "email" can stop the "composition" flip
-        this.mobileInput.setAttribute('inputmode', 'email'); 
+        // IMPORTANT: remove the old line:
+        // this.mobileInput.setAttribute('inputmode', 'email');
 
         this.fileSystem = {
             'about.txt': 'Computer Science student | Data Science + Cybersecurity',
@@ -251,43 +249,72 @@ class InteractiveTerminal {
             education: { section: '#education', response: '→ Education verified!' },
             certifications: { section: '#certifications', response: '→ Certifications unlocked!' },
             achievements: { section: '#achievements', response: '→ Achievements displayed!' },
-            help: { response: '📋 NAV: about, skills, projects, experience, education, certifications, achievements | ⚙️ UTIL: cls, ls, help' }
+            help: {
+                response:
+                    '📋 NAV: about, skills, projects, experience, education, certifications, achievements | ⚙️ UTIL: cls, ls, help'
+            }
         };
 
+        this.isComposing = false;
         this.showWelcomeGuide();
         this.init();
     }
 
     showWelcomeGuide() {
         setTimeout(() => {
-            this.addOutputLine('<span class="text-success">[BOOT]</span> Srivatsav_D Terminal v2.5');
-            this.addOutputLine('<span class="text-cyan">💡 TIP:</span> Tap here and type commands');
+            this.addOutputLine(
+                '<span class="text-success">[BOOT]</span> Srivatsav_D Terminal v2.5'
+            );
+            this.addOutputLine(
+                '<span class="text-cyan">💡 TIP:</span> Tap here and type commands'
+            );
         }, 400);
     }
 
     init() {
         this.mobileInput.value = '';
+        this.commandInput.textContent = '';
 
+        // Focus hidden input when terminal is tapped
         this.terminal.addEventListener('click', () => {
             this.mobileInput.focus();
         });
 
-        // "Hard-Sync": This catches deletions (backspace) that other events miss on mobile
         const syncDisplay = () => {
+            // Always mirror what is REALLY in the input
             this.commandInput.textContent = this.mobileInput.value;
         };
 
-        this.mobileInput.addEventListener('input', syncDisplay);
-        
-        // Extra catch for mobile keyboards that don't trigger 'input' on backspace
+        // Handle normal typing
+        this.mobileInput.addEventListener('input', () => {
+            if (!this.isComposing) syncDisplay();
+        });
+
+        // Handle IME composition (Android predictive text etc.)
+        this.mobileInput.addEventListener('compositionstart', () => {
+            this.isComposing = true;
+        });
+
+        this.mobileInput.addEventListener('compositionupdate', () => {
+            // optional: show live composition
+            this.commandInput.textContent = this.mobileInput.value;
+        });
+
+        this.mobileInput.addEventListener('compositionend', () => {
+            this.isComposing = false;
+            syncDisplay();
+        });
+
+        // Extra catch for some keyboards that do not fire 'input' on backspace
         this.mobileInput.addEventListener('keyup', (e) => {
             if (e.key === 'Backspace' || e.keyCode === 8) {
                 syncDisplay();
             }
         });
 
+        // Enter to execute
         this.mobileInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.keyCode === 13) {
+            if ((e.key === 'Enter' || e.keyCode === 13) && !this.isComposing) {
                 e.preventDefault();
                 this.executeCommand();
             }
@@ -298,15 +325,25 @@ class InteractiveTerminal {
         const fullValue = this.mobileInput.value;
         const cmd = fullValue.trim().toLowerCase();
 
-        this.addOutputLine(`<span class="text-info">srivatsav@GVP:~$</span> <span class="text-white">${fullValue}</span>`);
+        this.addOutputLine(
+            `<span class="text-info">srivatsav@GVP:~$</span> <span class="text-white">${fullValue}</span>`
+        );
 
         if (cmd === 'cls' || cmd === 'clear') {
-            this.terminal.querySelectorAll('.terminal-line').forEach(l => l.remove());
+            this.terminal
+                .querySelectorAll('.terminal-line')
+                .forEach((l) => l.remove());
             this.showWelcomeGuide();
         } else if (cmd === 'ls') {
-            this.addOutputLine(`<span class="text-cyan">📁 ${Object.keys(this.fileSystem).join('  ')}</span>`);
+            this.addOutputLine(
+                `<span class="text-cyan">📁 ${Object.keys(this.fileSystem).join(
+                    '&nbsp;&nbsp;'
+                )}</span>`
+            );
         } else if (this.commands[cmd]) {
-            this.addOutputLine(`<span class="text-success">[✓] ${this.commands[cmd].response}</span>`);
+            this.addOutputLine(
+                `<span class="text-success">[✓] ${this.commands[cmd].response}</span>`
+            );
             if (this.commands[cmd].section) {
                 setTimeout(() => {
                     const target = document.querySelector(this.commands[cmd].section);
@@ -314,10 +351,12 @@ class InteractiveTerminal {
                 }, 400);
             }
         } else if (cmd !== '') {
-            this.addOutputLine(`<span class="text-danger">[❌] Command '${cmd}' not found.</span>`);
+            this.addOutputLine(
+                `<span class="text-danger">[❌] Command '${cmd}' not found.</span>`
+            );
         }
 
-        // Complete reset for the next command
+        // Reset prompt for next command
         this.mobileInput.value = '';
         this.commandInput.textContent = '';
         this.terminal.scrollTop = this.terminal.scrollHeight;
@@ -330,6 +369,7 @@ class InteractiveTerminal {
         this.terminal.insertBefore(line, this.prompt);
     }
 }
+
 
 // [9] EMAILJS CONTACT FORM (META TAG METHOD - SECURE)
 function initEmailJS() {
